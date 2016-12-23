@@ -1,0 +1,223 @@
+.color-violet{
+    color: #a870e0;
+}
+.fwb{
+    font-weight: bold;
+}
+.btn-search{
+    display: block!important;
+}
+
+.history {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+}
+
+.condition-query {
+    height: 80px;
+    padding: 10px 10px 10px 0;
+    background: url('../../resources/images/query-bg.png') no-repeat 0 0;
+    background-color: #f8f8f8;
+    border-bottom: 1px dashed #d2d2d2;
+}
+
+.condition-query-title {
+    width: 20px;
+    height: 50px;
+    margin: 5px 0 5px 8px;
+    line-height: 25px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.condition-query-box {
+    width: calc(100% - 40px);
+}
+
+.datepicker-input {
+    position: relative;
+    width: 45%;
+}
+
+.datepicker-text {
+    width: 10%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.icon_time {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #cfa9f5;
+    cursor: pointer;
+}
+
+.form-group .reduce-width {
+    width: calc(100% - 90px) !important;
+}
+
+.btn-query {
+    position: absolute;
+    top: -1px;
+    right: 0;
+}
+
+.result-list {
+    padding: 5px 5px 20px;
+}
+
+.result-head {
+    margin-bottom: 5px;
+}
+
+.result-table table th {
+    padding: 5px !important;
+    background-color: #a870e0;
+    border-bottom-width: 1px !important;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+}
+
+.result-table table td {
+    padding: 2px !important;
+    text-align: center;
+}
+
+.result-table table td p {
+    height: 25px;
+    line-height: 25px;
+}
+
+.model-header {
+    height: 25px;
+    line-height: 25px;
+}
+
+.model-img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 2px 4px;
+}
+
+.model-title {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-set {
+    margin-left: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #fff;
+    border-color: #c899f7;
+    color: #333;
+    font-size: 12px;
+}
+
+.btn-set:focus,
+.btn-set.focus {
+    background-color: #f7f7f7;
+    border-color: #c899f7;
+    color: #333;
+}
+
+.btn-set:hover {
+    background-color: #f7f7f7;
+    border-color: #c899f7;
+    color: #333;
+}
+
+.btn-set .iconfont {
+    color: #a870e0;
+}
+
+.btn-edit {
+    margin-left: 2px;
+    padding: 0 6px;
+    background-color: #eddbff;
+    border-color: #ceaaf2;
+    color: #a870e0;
+    font-size: 12px;
+}
+
+.btn-edit:focus,
+.btn-edit.focus {
+    border-color: #c899f7;
+    background-color: #e0c2ff;
+    color: #a870e0;
+}
+
+.btn-edit:hover {
+    border-color: #c899f7;
+    background-color: #e0c2ff;
+    color: #a870e0;
+}
+
+.btn-edit .iconfont {
+    color: #a870e0;
+}
+
+.btn-disabled {
+    margin-left: 2px;
+    padding: 0 6px;
+    background-color: #dcdcdc;
+    border-color: #dcdcdc;
+    color: #bbb;
+    font-size: 12px;
+}
+
+.btn-disabled:focus,
+.btn-disabled.focus {
+    background-color: #dcdcdc;
+    border-color: #dcdcdc;
+    color: #bbb;
+}
+
+.btn-disabled:hover {
+    background-color: #dcdcdc;
+    border-color: #dcdcdc;
+    color: #bbb;
+}
+
+.btn-disabled .iconfont {
+    color: #bbb;
+}
+
+/*bootstrap表格颜色*/
+.table-striped > tbody > tr:nth-of-type(odd){
+    background-color: #fff;
+}
+.table-striped > tbody > tr:nth-of-type(even){
+    background-color: #faf7fc;
+}
+.table-hover > tbody > tr:hover {
+    background-color: #f5f5f5;
+}
+/*bootstrap表格颜色*/
+
+.btn-searching {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 25px;
+    padding: 0;
+    background-color: #fff;
+    border-color: #ccc;
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    line-height: 25px;
+    color: #a870e0;
+    font-size: 12px;
+    text-align: center;
+}

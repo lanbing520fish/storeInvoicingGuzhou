@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>店员配置</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="accountsPayable.css">
+</head>
+
+<body ng-app="staffModule">
+    <!-- DOM结构开始 -->
+    <div class="history top-line wavy-line">
+        <!-- 条件查询 -->
+        <div class="condition-query fn-clear" ng-controller="conditionQuery">
+            <p class="condition-query-title fn-left">搜
+                <br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row mb10">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">所属商户：</label>
+                                <input type="text" class="form-control reduce-width">
+                                <button type="submit" class="btn btn-sm btn-searching" ng-click="openStoreQueryType()"><i class="iconfont">&#xe600;</i></button>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">所属门店：</label>
+                                <select class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">店员姓名：</label>
+                                <input type="text" class="form-control reduce-width">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">店员手机号：</label>
+                                <input type="text" class="form-control reduce-width">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">登陆账号：</label>
+                                <input type="text" class="form-control reduce-width">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group btn-search">
+                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 结果列表 -->
+        <div class="result-list">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">店员列表</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <button class="btn btn-xs btn-set"><i class="iconfont">
+                        &#xe60e;</i> 新增店员</button>
+                        <button class="btn btn-xs btn-set"><i class="iconfont">
+                        &#xe610;</i> 批量删除</button>
+                        <button class="btn btn-xs btn-set"><i class="iconfont">
+                        &#xe613;</i> 批量启用</button>
+                        <button class="btn btn-xs btn-set"><i class="iconfont">
+                        &#xe612;</i> 批量停用</button>
+                    </div>
+                </div>
+            </div>
+            <div class="result-table">
+                <div class="result-table">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="5%">选择</th>
+                                <th width="10%">姓名</th>
+                                <th width="10%">登录帐号</th>
+                                <th width="10%">捆绑手机</th>
+                                <th>所属门店</th>
+                                <th width="10%">店员角色</th>
+                                <th width="8%">状态</th>
+                                <th width="10%">更新时间</th>
+                                <th width="12%">备注</th>
+                                <th width="12%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>
+                                    <p>韩晓辉</p>
+                                </td>
+                                <td>
+                                    <p>NM1001</p>
+                                </td>
+                                <td>
+                                    <p>15651802399</p>
+                                </td>
+                                <td>
+                                    <p>望月路全网通门店</p>
+                                </td>
+                                <td>
+                                    <p>库管员，收银员</p>
+                                </td>
+                                <td>
+                                    <p>正常</p>
+                                </td>
+                                <td>
+                                    <p>2016-11-02</p>
+                                </td>
+                                <td>
+                                    <p>--</p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-xs btn-edit"><i class="iconfont">&#xe60d;</i> 修改
+                                    </button>
+                                    <button class="btn btn-xs btn-edit"><i class="iconfont">&#xe610;</i> 删除
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>
+                                    <p>王磊</p>
+                                </td>
+                                <td>
+                                    <p>无</p>
+                                </td>
+                                <td>
+                                    <p>无</p>
+                                </td>
+                                <td>
+                                    <p>望月路全网通门店</p>
+                                </td>
+                                <td>
+                                    <p>销售员</p>
+                                </td>
+                                <td>
+                                    <p>停用</p>
+                                </td>
+                                <td>
+                                    <p>2016-10-23</p>
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-xs btn-edit"><i class="iconfont">&#xe60d;</i> 修改
+                                    </button>
+                                    <button class="btn btn-xs btn-edit"><i class="iconfont">&#xe610;</i> 删除
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="accountsPayable.js"></script>
+</body>
+
+</html>
