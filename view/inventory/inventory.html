@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>库存统计</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="inventory.css">
+</head>
+
+<body ng-app="inventoryModule">
+    <!-- DOM结构开始 -->
+    <div class="history top-line wavy-line" ng-controller="addAdjustInModalCtrl">
+        <!-- 条件查询 -->
+        <div class="alarm-query fn-clear" ng-controller="conditionQuery">
+            <p class="alarm-query-title fn-left">搜
+                <br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row mb10">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">门店名称：</label>
+                                <p class="detail-input color-purple">中国电信@平庄镇北街区营业厅</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="control-label">仓库名称：</label>
+                                <div class="select-box">
+                                    <select class="form-control">
+                                        <option value="">全部</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="control-label">商品类别：</label>
+                                <div class="select-box">
+                                    <select class="form-control">
+                                        <option value="">全部</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            <div class="form-group btn-search">
+                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 结果列表 -->
+        <div class="result-list" ng-controller="resultCtrl">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">库存统计明细列表</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="result-table">
+                <div class="result-table">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="26%">门店名称</th>
+                                <th>仓库名称</th>
+                                <th width="12%">商品类别</th>
+                                <th width="12%">库存总量</th>
+                                <th width="12%">总金额</th>
+                                <th width="12%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>平庄镇北街区营业厅</p>
+                                </td>
+                                <td>
+                                    <p>平庄镇北街区第一仓库</p>
+                                </td>
+                                <td>
+                                    <p>手机</p>
+                                </td>
+                                <td>
+                                    <p>423</p>
+                                </td>
+                                <td>
+                                    <p>￥1294449.00</p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-xs btn-edit" ng-click="detailAccounts()"><i class="iconfont">&#xe60b;</i> 商品明细
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+        </div>
+        <!-- 详情 -->
+        <script type="text/ng-template" id="detailAccountsModal.html">
+            <div class="modal-header">
+                <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
+                <h3 class="modal-title" id="serial-number-title"><img class="icon" src="../../resources/images/icon-list1.png">商品明细</h3>
+            </div>
+            <div class="history-detail-infomation">
+                <div class="model-header">
+                    <p class="model-detail-title">商品类别信息</p>
+                </div>
+                <div class="info-detail-form">
+                    <form name="infomationForm" class="form-inline" role="form">
+                        <div class="row dashed-line">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>门店名称：</span>平庄镇北街区营业厅</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>仓库名称：</span>平庄镇北街区第一仓库</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row high30">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>商品类别：</span>手机</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>库存总量：</span>423</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="serial-number-list">
+                <div class="model-header">
+                    <p class="model-detailnumber-title">商品明细</p>
+                </div>
+                <div class="result-table">
+                    <table class="table table-hover table-bordered grey-table">
+                        <thead>
+                            <tr>
+                                <th>商品名称</th>
+                                <th width="10%">商品类别</th>
+                                <th width="10%">商品编码</th>
+                                <th width="10%">商品品牌</th>
+                                <th width="12%">商品型号</th>
+                                <th width="8%">库存量</th>
+                                <th width="10%">预警</th>
+                                <th width="12%">采购价格（元）</th>
+                                <th width="13%">建议零售价（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>OPPO-1105(白色)</p>
+                                </td>
+                                <td>
+                                    <p>手机</p>
+                                </td>
+                                <td>
+                                    <p>--</p>
+                                </td>
+                                <td>
+                                    <p>欧珀</p>
+                                </td>
+                                <td>
+                                    <p>OPPO-1105</p>
+                                </td>
+                                <td>
+                                    <p>55</p>
+                                </td>
+                                <td>
+                                    <p>正常</p>
+                                </td>
+                                <td>
+                                    <p>￥600</p>
+                                </td>
+                                <td>
+                                    <p>￥989</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>苹果iPhone5C(32G粉) </p>
+                                </td>
+                                <td>
+                                    <p>手机</p>
+                                </td>
+                                <td>
+                                    <p>--</p>
+                                </td>
+                                <td>
+                                    <p>苹果</p>
+                                </td>
+                                <td>
+                                    <p>苹果iPhone5C</p>
+                                </td>
+                                <td>
+                                    <p>55</p>
+                                </td>
+                                <td>
+                                    <p>正常</p>
+                                </td>
+                                <td>
+                                    <p>￥600</p>
+                                </td>
+                                <td>
+                                    <p>￥989</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>OPPO-1105(白色)</p>
+                                </td>
+                                <td>
+                                    <p>手机</p>
+                                </td>
+                                <td>
+                                    <p>--</p>
+                                </td>
+                                <td>
+                                    <p>欧珀</p>
+                                </td>
+                                <td>
+                                    <p>OPPO-1105</p>
+                                </td>
+                                <td>
+                                    <p>55</p>
+                                </td>
+                                <td>
+                                    <p>正常</p>
+                                </td>
+                                <td>
+                                    <p>￥600</p>
+                                </td>
+                                <td>
+                                    <p>￥989</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>苹果iPhone5C(32G粉) </p>
+                                </td>
+                                <td>
+                                    <p>手机</p>
+                                </td>
+                                <td>
+                                    <p>--</p>
+                                </td>
+                                <td>
+                                    <p>苹果</p>
+                                </td>
+                                <td>
+                                    <p>苹果iPhone5C</p>
+                                </td>
+                                <td>
+                                    <p>55</p>
+                                </td>
+                                <td>
+                                    <p>正常</p>
+                                </td>
+                                <td>
+                                    <p>￥600</p>
+                                </td>
+                                <td>
+                                    <p>￥989</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length" ng-cloak>
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">关闭</button>
+            </div>
+        </script>
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular-locale_zh-cn.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="inventory.js"></script>
+</body>
+
+</html>

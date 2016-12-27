@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>销售统计查询</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="salesStatistics.css">
+</head>
+
+<body ng-app="salesStatisticsModule">
+    <!-- 查询 -->
+    <div class="dailyAccountsHistory top-line wavy-line" ng-controller="salesStatisticsQuery">
+        <div class="alarm-query fn-clear">
+            <p class="alarm-query-title fn-left">搜<br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">起止月份：</label>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="createStartDt" class="form-control modify-input" uib-datepicker-popup="{{format}}" readonly ng-model="conditionQueryForm.createStartDt" is-open="startPopupOpened" datepicker-options="startDateOptions" show-button-bar='false' />
+                                    <span class="icon_time" ng-click="startOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="datepicker-text fn-left">至</div>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="createEndDt" class="form-control modify-input" uib-datepicker-popup="{{format}}" readonly ng-model="conditionQueryForm.createEndDt" is-open="endPopupOpened" datepicker-options="endDateOptions" show-button-bar='false' />
+                                    <span class="icon_time" ng-click="endOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div>
+                                <button type="submit" class="btn btn-sm btn-query" ng-click="queryFormSubmit()"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 列表 -->
+        <div class="result-list">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">销售统计信息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="statQuery-msg fn-clear">
+                <div class="fn-left stat-time">
+                    <div class="stat-content stat-bottom-line"><span class="stat-title">统计时间段：</span><span>2016-11-27至 2016-12-22</span></div>
+                    <div class="stat-content"><span class="stat-title">总计销售金额：</span><span class="nub-big">￥9047.00</span></div>
+                </div>
+                <div class="fn-left stat-table">
+                    <table>
+                        <tr>
+                            <td class="bg-gray">收款方式：</td>
+                            <td rowspan="2"><img src="../../resources/images/stat-table-bg.jpg"></td>
+                            <td width="100" class="border-right"><p class="line-bottom">POS机</p></td>
+                            <td width="109" class="border-right"><p class="line-bottom">支付宝支付</p></td>
+                            <td width="118"><p class="line-bottom">现金</p></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-gray">收款金额：</td>
+                            <td class="border-right nub">￥7258.00</td>
+                            <td class="border-right nub">￥789.00</td>
+                            <td class="nub">￥0.00</td>
+                        </tr> 
+                    </table>
+                </div>
+            </div>
+            <div class="sale-stat-box">
+                <div class="sale-stat mb10">
+                    <table class="sale-stat-head">
+                        <thead>
+                            <th width="12%">商品编码</th>
+                            <th width="12%">商品名称</th>
+                            <th width="12%">商品型号</th>
+                            <th width="12%">商品件数</th>
+                            <th width="12%">订单类型</th>
+                            <th width="12%">客户</th>
+                            <th width="16%">订单总金额（元）</th>
+                            <th width="12%">收费</th>
+                        </thead>
+                    </table>
+                    <table class="sale-stat-list mt10">
+                        <thead>
+                            <th colspan="2">单据号：<span class="receiptsNub">22016992939390190087661</span></th>
+                            <th colspan="2">单据时间： 2016-12-15 22:20:51</th>
+                            <th colspan="2">销售：陈小二</th>
+                            <th colspan="2"></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="12%">1151259176164</td>
+                                <td width="12%">华为-1215</td>
+                                <td width="12%">123</td>
+                                <td width="12%">-1</td>
+                                <td width="12%">零售退货</td>
+                                <td width="12%"></td>
+                                <td width="16%"><span class="nub">¥ -3000.00（退）</span></td>
+                                <td width="12%">¥ -3000.00（退）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="sale-stat-list mt10">
+                        <thead>
+                            <th colspan="2">单据号：<span class="receiptsNub">22016992939390190087661</span></th>
+                            <th colspan="2">单据时间： 2016-12-15 22:20:51</th>
+                            <th colspan="2">销售：陈小二</th>
+                            <th colspan="2"></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="12%">1151259176164</td>
+                                <td width="12%">华为-1215</td>
+                                <td width="12%">123</td>
+                                <td width="12%">-1</td>
+                                <td rowspan="2" width="12%">零售退货</td>
+                                <td rowspan="2" width="12%"></td>
+                                <td rowspan="2" width="16%"><span class="nub">¥ -3000.00</span></td>
+                                <td rowspan="2" width="12%">¥ -3000.00</td>
+                            </tr>
+                            <tr>
+                                <td width="12%">1151259176164</td>
+                                <td width="12%">华为-1215</td>
+                                <td width="12%">123</td>
+                                <td width="12%">-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="sale-stat-list mt10">
+                        <thead>
+                            <th colspan="2">单据号：<span class="receiptsNub">22016992939390190087661</span></th>
+                            <th colspan="2">单据时间： 2016-12-15 22:20:51</th>
+                            <th colspan="2">销售：陈小二</th>
+                            <th colspan="2"></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="12%">1151259176164</td>
+                                <td width="12%">华为-1215</td>
+                                <td width="12%">123</td>
+                                <td width="12%">-1</td>
+                                <td rowspan="3" width="12%">零售退货</td>
+                                <td rowspan="3" width="12%"></td>
+                                <td rowspan="3" width="16%"><span class="nub">¥ -3000.00</span></td>
+                                <td rowspan="3" width="12%">¥ -3000.00</td>
+                            </tr>
+                            <tr>
+                                <td width="12%">1151259176164</td>
+                                <td width="12%">华为-1215</td>
+                                <td width="12%">123</td>
+                                <td width="12%">-1</td>
+                            </tr>
+                            <tr>
+                                <td width="12%">1151259176164</td>
+                                <td width="12%">华为-1215</td>
+                                <td width="12%">123</td>
+                                <td width="12%">-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="salesStatistics.js"></script>
+</body>
+
+</html>
