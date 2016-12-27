@@ -113,94 +113,19 @@
     font-weight: bold;
 }
 
-.btn-set {
-    margin-left: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: #fff;
-    border-color: #c899f7;
-    color: #333;
-    font-size: 12px;
-}
-
-.btn-set:focus,
-.btn-set.focus {
-    background-color: #f7f7f7;
-    border-color: #c899f7;
-    color: #333;
-}
-
-.btn-set:hover {
-    background-color: #f7f7f7;
-    border-color: #c899f7;
-    color: #333;
-}
-
-.btn-set .iconfont {
-    color: #a870e0;
-}
-
-.btn-edit {
-    margin-left: 2px;
-    padding: 0 6px;
-    background-color: #eddbff;
-    border-color: #ceaaf2;
-    color: #a870e0;
-    font-size: 12px;
-}
-
-.btn-edit:focus,
-.btn-edit.focus {
-    border-color: #c899f7;
-    background-color: #e0c2ff;
-    color: #a870e0;
-}
-
-.btn-edit:hover {
-    border-color: #c899f7;
-    background-color: #e0c2ff;
-    color: #a870e0;
-}
-
-.btn-edit .iconfont {
-    color: #a870e0;
-}
-
-.btn-disabled {
-    margin-left: 2px;
-    padding: 0 6px;
-    background-color: #dcdcdc;
-    border-color: #dcdcdc;
-    color: #bbb;
-    font-size: 12px;
-}
-
-.btn-disabled:focus,
-.btn-disabled.focus {
-    background-color: #dcdcdc;
-    border-color: #dcdcdc;
-    color: #bbb;
-}
-
-.btn-disabled:hover {
-    background-color: #dcdcdc;
-    border-color: #dcdcdc;
-    color: #bbb;
-}
-
-.btn-disabled .iconfont {
-    color: #bbb;
-}
-
 /*bootstrap表格颜色*/
 .table-striped > tbody > tr:nth-of-type(odd){
     background-color: #fff;
 }
-.table-striped > tbody > tr:nth-of-type(even){
-    background-color: #faf7fc;
-}
 .table-hover > tbody > tr:hover {
     background-color: #f5f5f5;
+}
+.serial-number-list table tr th{
+    background: #ddd;
+    color:#333;
+}
+.serial-number-list table tr:nth-of-type(2n) {
+    background: #fafafa;
 }
 /*bootstrap表格颜色*/
 
@@ -221,3 +146,63 @@
     font-size: 12px;
     text-align: center;
 }
+.form-group-deploy {
+    position: relative;
+    width: 100% !important;
+    padding-left: 90px;
+}
+.form-group-deploy input[type="text"], .form-group input[type="number"] {
+    width: 95% !important;
+    height: 25px;
+    padding: 0 12px;
+    line-height: 25px;
+    border-radius: 14px;
+}
+.form-group-deploy label {
+    position: absolute;
+    left: 0;
+    width: 90px !important;
+    line-height: 25px;
+    text-align: right;
+}
+/*弹窗内容*/
+.high30{
+    height: 30px;
+}
+.mt10{
+    margin-top: 10px;
+}
+.history-detail-infomation {
+    padding: 5px 20px 0px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px dashed #bfbfbf;
+}
+.model-detail-title{
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+}
+.serial-number-list{
+    padding:0 6px;
+}
+.model-detailnumber-title{
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 14px;
+    margin-top: 2px;
+    height: 25px;
+}
+.form-group .detail-msg{
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    text-align: left;
+}
+.form-group .detail-msg span{
+    color: #999999;
+}
+.info-detail-form{
+    margin-top: 8px;
+}
+/*弹窗内容*/
