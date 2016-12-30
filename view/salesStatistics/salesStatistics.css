@@ -1,0 +1,365 @@
+.mt10{
+    margin-top: 10px;
+}
+.dailyAccountsHistory {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+}
+/* 日结完成 */
+.daily-store{
+	width:100%;
+	height:40px;
+	background: #f8f8f8;
+	border-bottom:1px dotted #ddd;
+    overflow-x: hidden;
+}
+.daily-store .wrds{
+	display:inline-block;
+	width:303px;
+	text-indent: 20px;
+	font-size:12px;
+	font-weight: bold;
+	line-height:40px;
+}
+/*.form-group input[type="text"] {
+    margin-top: 7px;
+}*/
+.datepicker-input {
+    position: relative;
+    width: 45%;
+}
+.datepicker-text {
+    width: 10%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.icon_time {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    color: #cfa9f5;
+    cursor: pointer;
+}
+.form-group {
+    padding-left: 74px;
+}
+.form-group label {
+    width: 72px !important;
+    /*line-height: 40px;*/
+}
+.form-group .reduce-width {
+    width: calc(100% - 90px) !important;
+}
+.btn-submit{
+	margin:7px 0 0 0;
+}
+
+/* table */
+.result-list {
+    padding: 5px 5px 20px;
+}
+
+.result-head {
+    margin-bottom: 5px;
+}
+
+.result-table table th {
+    padding: 5px !important;
+    background-color: #a870e0;
+    border-bottom-width: 1px !important;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+}
+
+.result-table table td {
+    padding: 2px !important;
+    text-align: center;
+}
+
+.result-table table td p {
+    height: 25px;
+    line-height: 25px;
+}
+.model-header {
+    height: 25px;
+    line-height: 25px;
+}
+
+.model-img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 2px 4px;
+}
+
+.model-title {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+.btn-edit {
+    margin-left: 2px;
+    padding: 0 6px;
+    background-color: #eddbff;
+    border-color: #ceaaf2;
+    color: #a870e0;
+    font-size: 12px;
+}
+
+.btn-edit:focus,
+.btn-edit.focus {
+    border-color: #c899f7;
+    background-color: #e0c2ff;
+    color: #a870e0;
+}
+
+.btn-edit:hover {
+    border-color: #c899f7;
+    background-color: #e0c2ff;
+    color: #a870e0;
+}
+
+.btn-edit .iconfont {
+    color: #a870e0;
+}
+/* 日结完成 */
+
+/* 日结详情 */
+.mb5{
+	margin-bottom: 5px;
+}
+.mb8{
+	margin-bottom: 8px;
+}
+.purple-color{
+	color:#a870e0;
+}
+.font14{
+	font-size:14px;
+}
+.grey-color{
+	color:#999;
+}
+.result-list {
+    padding: 5px 5px 20px;
+}
+
+.result-head {
+    margin-bottom: 3px;
+}
+
+.model-header {
+    height: 25px;
+    line-height: 25px;
+}
+.model-title {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+.model-img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 2px 4px;
+}
+.result-table table th {
+    padding: 5px !important;
+    background-color: #a870e0;
+    border-bottom-width: 1px !important;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+}
+.result-table table tr td {
+    padding: 0px !important;
+    text-align: center;
+    vertical-align: middle;
+}
+.result-table table tr:hover{
+	background: none;
+}
+.result-table table td p {
+    height: 29px;
+    line-height: 29px;
+}
+.tabover{
+	width:100%;
+}
+.tabover td{
+	width:100%;
+	border-bottom: 1px solid #d5d4dc;
+}
+.tabover tr:last-child td{
+	border-bottom: none;
+}
+.tabover tr:nth-of-type(2n){
+	background: #faf7fc;
+}
+/* 日结详情 */
+
+.alarm-query{
+    height: 48px;
+    padding: 10px 10px 10px 0;
+    background: url('../../resources/images/query-bg-s.png') no-repeat 0 0;
+    background-color: #f8f8f8;
+    border-bottom: 1px dashed #d2d2d2;
+}
+
+.alarm-query-title {
+    width: 20px;
+    height: 38px;
+    position: relative;
+    top: -9px;
+    margin: 0px 0px 0px 8px;
+    line-height: 24px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.condition-query-box {
+    width: calc(100% - 40px);
+}
+
+.datepicker-input {
+    position: relative;
+    width: 45%;
+}
+
+.datepicker-text {
+    width: 10%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.icon_time {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #cfa9f5;
+    cursor: pointer;
+}
+
+.form-group .reduce-width {
+    width: calc(100% - 90px) !important;
+}
+
+
+.statQuery-msg{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top: 2px solid #a870e0;
+}
+.stat-time{
+    width: 30%;
+    border-right: 1px solid #d3bbeb;
+    background: #f5ebff;
+    padding-left: 6px;
+    height: 75px;
+}
+.stat-content{
+    min-height: 37px;
+    height: auto!important;
+    line-height: 37px;
+    padding-left: 7px;
+    color: #9041de;
+}
+.stat-bottom-line{
+    border-bottom: 1px solid #d3bbeb;
+}
+.stat-table{
+    background: #f7f7f7;
+    width: 70%;
+    height: 75px;
+}
+.stat-table table{
+    height: 57px;
+    margin: 9px 0px 7px 7px;
+    background: #fff;
+    text-align: center;
+}
+.stat-table table td{
+    height: 28px;
+    line-height: 28px;
+}
+.stat-table table .bg-gray{
+    background: #ececec;
+    width: 78px;
+    font-weight: bold;
+}
+.line-bottom{
+    width: 90%;
+    margin: auto;
+    border-bottom: 1px dotted #ddd;
+}
+.nub{
+    color: #19bbaa;
+    font-size: 14px;
+    font-weight: bold;
+}
+.nub-big{
+    color: #19bbaa;
+    font-size: 18px;
+    font-weight: bold;
+}
+.sale-stat-box{
+    border: 1px solid #ddd;
+    padding: 13px 6px 30px 6px;
+}
+.stat-title{
+    font-weight: bold;
+}
+.sale-stat{
+    width: 100%;
+}
+.sale-stat .sale-stat-head{
+    width: 100%;
+    background: #a870e0;
+    color: #fff;
+    border-left: 1px solid #9459d0;
+    border-top: 1px solid #9459d0;
+}
+.sale-stat .sale-stat-head th{
+    height: 30px;
+    line-height: 30px;
+    border-right: 1px solid #9459d0;
+    border-bottom: 1px solid #9459d0;
+    text-align: center;
+}
+.sale-stat .sale-stat-list{
+    width: 100%;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+.sale-stat .sale-stat-list thead{
+    border-right: 1px solid #ddd;
+}
+.sale-stat .sale-stat-list th{
+    background: #f8f8f8;
+    text-align: center;
+    height: 26px;
+    line-height: 26px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+    font-weight: normal;
+}
+.receiptsNub{
+    color: #7e3dd1;
+    font-weight: bold;
+}
+.sale-stat .sale-stat-list td{
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    height: 26px;
+    line-height: 26px;
+}
