@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>商户注册</title>
+	<link rel="stylesheet" href="../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../resources/css/reset.css">
+    <link rel="stylesheet" href="../resources/css/common.css">
+    <link rel="stylesheet" href="register.css">
+</head>
+<body ng-app="registerModule">
+
+	<div class="header-bg">
+		<div class="header fn-clear">
+			<div class="header-logo fn-left">
+				<img src="../resources/images/logo-register.png">
+			</div>
+		</div>
+	</div>
+
+    <div class="step fn-clear">
+            <li class="step-item fn-left" ng-class="{current: stepNum === 0}">
+                <div class="step-icon"></div>
+                <p class="step-title">注册我的店</p>
+            </li>
+            <li class="step-item fn-left" ng-class="{current: stepNum === 1}">
+                <div class="step-icon"></div>
+                <p class="step-title">我的设置</p>
+            </li>
+            <li class="step-item fn-left" ng-class="{current: stepNum === 2}">
+                <div class="step-icon"></div>
+                <p class="step-title">添加店员</p>
+            </li>
+            <li class="step-item fn-left" ng-class="{current: stepNum === 3}">
+                <div class="step-icon"></div>
+                <p class="step-title">供应商设置</p>
+            </li>
+        </div>
+        
+
+	<div class="step-content" ng-show="stepNum === 0" ng-cloak>
+		<div class="box-1000" ng-controller="queryStoreCtrl">
+			<form name="infomationForm" class="form-inline" role="form">
+
+				<div class="row mb10 mt10">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6">
+						<div class="hint-msg" ng-show="showLocation"><img src="../resources/images/hint-msg.png" alt="">请输入您在渠道运营管理系统中的商工号和密码来定位您自己的店</div>
+					</div>
+				</div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+                            <label class="control-label"><i class="iconfont red-star">&#xe692;</i>地区：</label>
+                            <input type="text" class="form-control" ng-model="checkedAreaName">
+                            <button ng-click="cityCheck()" type="submit" class="btn btn-sm btn-location"><i
+                                class="iconfont">&#xe6cb;</i></button>
+                            <div class="city-check-box" ng-show="visible">
+                                <uib-tabset active="key">
+                                    <uib-tab index="1" heading="省份">
+                                        <div class="city-content">
+                                            <li class="city-item" ng-class="{current: $index === provinceIndex}"
+                                                ng-repeat="item in regionInfoList"
+                                                ng-click="handleSelectCity('province', $index, item.commonRegionId, item.regionName)">
+                                                {{item.regionName}}
+                                            </li>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab index="2" heading="城市">
+                                        <div class="city-content">
+                                            <li class="city-item" ng-class="{current: $index === cityIndex}"
+                                                ng-repeat="item in regionInfoList[provinceIndex].childrenCommon"
+                                                ng-click="handleSelectCity('city', $index, item.commonRegionId, item.regionName)">
+                                                {{item.regionName}}
+                                            </li>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>工号：</label>
+		                    <input type="text" ng-model="storeListForm.bssId" class="form-control">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="input-pwd">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>密码：</label>
+		                    <input type="password" ng-model="storeListForm.password" class="form-control">
+		                </div>
+		                <div class="input-btn">
+		                	<button class="btn btn-cancel" ng-click="locationFormSubmit()" type="button">定位</button>
+		                </div>
+		            </div>
+		        </div>
+
+		    </form>
+		    <div ng-controller="queryStoreListCtrl">
+			    <div class="shop-table myshop">
+			    	<table>
+			    		<thead>
+			    			<tr>
+				    			<th width="10%">选择</th>
+				    			<th>官方门店名称</th>
+				    			<th width="28%">电话</th>
+				    			<th width="28%">我的门店名</th>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+			    			<tr ng-repeat="item in storesInfoList.channelList">
+			    				<td><input type="radio" name="shopname" ng-click="selectStoreList($index)"></td>
+			    				<td>
+			    					<table class="shop-name">
+			    						<tr>
+				    						<td rowspan="2">
+					    						<img src="../resources/images/shop_icon.jpg" alt="">
+					    					</td>
+					    					<td><p class="font-blod" ng-bind="item.channelName"></p></td>
+				    					</tr>
+				    					<tr>
+				    						
+				    						<td><p ng-bind="item.channelAddress"></p></td>
+				    					</tr>
+			    					</table>
+			    				</td>
+			    				<td><p ng-bind="item.channelPhone"></p></td>
+			    				<td>
+			    					<div class="shop-input">
+			    						<input type="text" class="form-control" ng-model="item.channelName" disabled/>
+			    					</div>
+			    				</td>
+			    			</tr>
+			    		</tbody>
+			    	</table>
+			    </div>
+			    <div class="shop-table myshop text-right">
+				    <div class="row">
+				    	<div class="col-xs-10">
+						    <div ng-show="showLocationNext" style="line-height: 25px;">
+							    <span class="iconfont red-star"><i >&#xe692;</i>请先定位选择门店</span>
+						    </div>
+					    </div>
+
+					    <div class="col-xs-2">
+					    	<button type="submit" class="btn btn-sm btn-query" ng-click="selectStoreListFormSubmit()">下一步</button>
+					    </div>
+				    </div>
+
+				</div>
+		    </div>
+	    </div>
+    </div>
+    <div class="step-content" ng-show="stepNum === 1"  ng-cloak>
+    	<div class="box-1000" ng-controller="setInfoCtrl">
+			<form name="infomationForm" class="form-inline" role="form">
+				<div class="row mb10 mt10">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6">
+						<div class="hint-msg" ng-show="Checkpassword"><img src="../resources/images/hint-msg.png" alt="">为“<span ng-bind="parameterList.channel.channelName"></span>”增加店长信息</div>
+					</div>
+				</div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>我的姓名：</label>
+		                    <input type="text" class="form-control" ng-model="MsgForm.myName">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>创建登录账号：</label>
+		                    <input type="text" class="form-control"  ng-model="MsgForm.userId">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>密码：</label>
+		                    <input type="password" class="form-control" ng-model="MsgForm.password">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>确认密码：</label>
+		                    <input type="password" class="form-control" ng-model="MsgForm.checkpassword">
+		                </div>
+		            </div>
+		           <!--  <div class="col-xs-4" ng-show="Checkpassword" style="line-height: 25px;"><span class="iconfont red-star"><i >&#xe692;</i>密码输入不一致或为空，请重新输入</span></div> -->
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>手机号码：</label>
+		                    <input type="text" class="form-control" ng-model="MsgForm.phoneNumber">
+		                </div>
+		            </div>
+		            <div class="col-xs-4"><span class="annotation">注:该号码可用于系统登录</span></div>	
+		        </div>
+		    </form>
+		    <div class="role-table myshop">
+		    	<table>
+		    		<thead>
+		    			<tr>
+			    			<th>官方门店名称</th>
+			    			<th>地址</th>
+			    			<th>我的角色</th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr>
+		    				<td><p ng-bind="parameterList.channel.channelName"></p></td>
+		    				<td><p ng-bind="parameterList.channel.channelAddress"></p></td>
+		    				<td>
+		    					<div class="role-radio">
+			    					<input type="checkbox" id="setpermissions" name="role" ng-checked="true" ng-model="MsgForm.roleList" value="1001" uib-btn-radio="'1001'" />
+			    					<label for="setpermissions">店长</label>
+		    					</div>
+		    				</td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+		    </div>
+		    <div class="shop-table myshop ">
+		    	<div class="row">
+		    		<div class="col-xs-6">
+		    			<button type="submit" class="btn btn-sm btn-query" ng-click="goBack(stepNum)">上一步</button>
+		    		</div>
+		    		<div class="col-xs-6 text-right">
+		    			<button type="submit" class="btn btn-sm btn-query" ng-click="setBasicInfo()">下一步</button>
+		    		</div>
+		    	</div>
+		    </div>
+	    </div>
+    </div>
+    <div class="step-content" ng-show="stepNum === 2" ng-cloak>
+    	<div class="box-1000" ng-controller="addClerkCtrl">
+			<form name="infomationForm" class="form-inline" role="form">
+				<div class="row mb10 mt10">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6">
+						<div class="hint-msg" ng-show="ishasrole"><img src="../resources/images/hint-msg.png" alt="">为“<span ng-bind="parameterList.channel.channelName"></span>”增加店员</div>
+					</div>
+				</div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>姓名：</label>
+		                    <input type="text" class="form-control" ng-model="myStaffListForm.staffName">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>登录账号：</label>
+		                    <input type="text" class="form-control" ng-model="myStaffListForm.userId">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>密码：</label>
+		                    <input type="password" class="form-control" ng-model="myStaffListForm.password">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>确认密码：</label>
+		                    <input type="password" class="form-control" ng-model="myStaffListForm.checkpassword">
+		                </div>
+		            </div>
+		            <!-- <div class="col-xs-4"   style="line-height: 25px;"><span class="iconfont red-star"><i >&#xe692;</i>密码输入不一致或为空，请重新输入</span></div> -->
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"><i class="iconfont red-star">&#xe692;</i>手机号码：</label>
+		                    <input type="text" class="form-control" ng-model="myStaffListForm.phoneNumber">
+		                </div>
+		            </div>
+		            <div class="col-xs-4"><span class="annotation">注:该号码可用于系统登录</span></div>	
+		        </div>
+		    </form>
+		    <div class="role-table myshop">
+		    	<table>
+		    		<thead>
+		    			<tr>
+			    			<th>官方门店名称</th>
+			    			<th>地址</th>
+			    			<th>我的角色</th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr>
+		    				<td><p>{{parameterList.channel.channelName}}</p></td>
+		    				<td><p>{{parameterList.channel.channelAddress}}</p></td>
+		    				<td>
+		    					<div class="role-radio">
+			    					<input type="checkbox" ng-model="myStaffListForm.role1" id="role1" name="1001" />
+			    					<label for="role1">店长</label>
+
+			    					<input type="checkbox" ng-model="myStaffListForm.role2" id="role2" name="1002" />
+			    					<label for="role2">收银员</label>
+
+			    					<input type="checkbox" ng-model="myStaffListForm.role3" id="role3" name="1003" />
+			    					<label for="role3">仓库管理员</label>
+
+			    					<input type="checkbox" ng-model="myStaffListForm.role4" id="role4" name="1004" />
+			    					<label for="role4">销售员</label>
+		    					</div>
+		    				</td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+		    </div>
+		    <div class="role-box">
+		    	<div class="addrole-btn">
+			    	<button type="submit" ng-click="addClerkSubmit()" class="btn btn-cancel">添加店员</button>
+			    	<button type="submit" ng-click="resetSubmit()" class="btn btn-cancel">重置</button>
+		    	</div>
+		    	<div class="role-list-box">
+		    		<div class="role-list fn-clear">
+		    			<ul>
+		    				<li ng-repeat="item in addClerkList">
+		    					<button ng-click="deleteRole($index)" class="deletrole">x</button>
+		    					<table class="role-list-table">
+		    						<tr>
+		    							<td rowspan="6" class="role-icon"><img src="../resources/images/icon-role.jpg" /></td>
+		    						</tr>
+		    						<tr>
+		    							<td><p class="role-list-msg">姓名：<span class="color-block" ng-bind="item.staffName"></span></p></td>
+		    						</tr>
+		    						<tr>
+		    							<td><p class="role-list-msg">帐号：<span class="color-block" ng-bind="item.userId"></span></p></td>
+		    						</tr>
+		    						<tr>
+			    						<td><p class="role-list-msg">电话：<span class="color-block font-blod"  ng-bind="item.phoneNumber"></span></p></td>
+		    						</tr>
+		    						<tr>
+			    						<td>
+			    							<p class="role-list-msg">{{parameterList.channel.channelName}}：
+			    							<span class="color-purple" ng-repeat="y in item.roleList" ng-bind="y | roleListText"></span>
+			    						</p></td>
+		    						</tr>
+		    					</table>
+		    				</li>
+		    			</ul>
+		    		</div>
+		    	</div>
+		    </div>
+		    <div class="shop-table myshop ">
+		    	<div class="row">
+		    		<div class="col-xs-6">
+		    			<button type="submit" class="btn btn-sm btn-query" ng-click="goBack(stepNum)">上一步</button>
+		    		</div>
+		    		<div class="col-xs-6 text-right">
+		    			<button type="submit" class="btn btn-sm btn-query" ng-click="addClerkNextSubmit()">下一步</button>
+		    		</div>
+		    	</div>
+		    </div>
+	    </div>
+    </div>
+    <div class="step-content" ng-show="stepNum === 3" ng-cloak>
+		<div class="box-1000" ng-controller="addProviderCtrl">
+			<form name="infomationForm" class="form-inline" role="form">
+				<div class="row mb10 mt10">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-6">
+						<div class="hint-msg" ng-show="isSupplier"><img src="../resources/images/hint-msg.png" alt="">为“<span ng-bind="parameterList.channel.channelName">”配置供货商</div>
+					</div>
+				</div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label">供货商：</label>
+		                    <input type="text" class="form-control" ng-model="mySupplierList.supplierName">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label">联系人：</label>
+		                    <input type="text" class="form-control" ng-model="mySupplierList.supplierLinkMan">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label">联系电话：</label>
+		                    <input type="text" class="form-control" ng-model="mySupplierList.linkManPhone">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label">公司电话：</label>
+		                    <input type="text" class="form-control" ng-model="mySupplierList.supplierPhone">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label">公司传真：</label>
+		                    <input type="text" class="form-control" ng-model="mySupplierList.supplierFax">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="row mb10">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-4">
+		                <div class="form-group">
+		                    <label class="control-label">状态：</label>
+							<div class="user-radio">
+
+	    						<input type="radio" id="roleuse" name="status" />
+		    					<label for="roleuse" ng-click="toggleStatus(1)">启用</label>
+
+		    					<input type="radio" id="rolestop" name="status" />
+		    					<label for="rolestop" ng-click="toggleStatus(0)">停用</label>
+
+	    					</div>
+		                </div>
+		            </div>
+		            <div class="col-xs-4" ng-show="isaddProvider" style="line-height: 25px;"><span class="iconfont red-star"><i >&#xe692;</i>请输入供应商名称，及选择状态</span></div>
+		        </div>
+		        <div class="row">
+		        	<div class="col-xs-3"></div>
+		            <div class="col-xs-5">
+		                <div class="form-group">
+		                    <label class="control-label"></label>
+					    	<button type="submit" ng-click="addProviderSubmit()" class="btn btn-cancel">添加供货商</button>
+					    	<button type="reset" class="btn btn-cancel">取消</button>
+		                </div>
+		            </div>
+		        </div>
+		    </form>
+		    <div class="shop-table myshop">
+		    	<table>
+		    		<thead>
+		    			<tr>
+			    			<th>供货商</th>
+			    			<th>联系人</th>
+			    			<th>联系电话</th>
+			    			<th>公司电话</th>
+			    			<th>公司传真</th>
+			    			<th>状态</th>
+			    			<th>删除</th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr ng-repeat="item in addProviderList">
+		    				<td><p ng-bind="item.supplierName"></p></td>
+		    				<td><p ng-bind="item.supplierLinkMan"></p></td>
+		    				<td><p ng-bind="item.linkManPhone"></p></td>
+		    				<td><p ng-bind="item.supplierPhone"></p></td>
+		    				<td><p ng-bind="item.supplierFax"></p></td>
+		    				<td>
+		    					<p ng-bind="item.status | statusText" ng-class="{'status_stop': item.status === 0, 'status_use': item.status === 1}" ></p>
+		    				</td>
+		    				<td>
+			    				<button ng-click="deleteProvider($index)" class="btn btn-xs btn-edit"><i class="iconfont">&#xe610;</i> 删除
+	                                </button>
+		    				</td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+		    </div>
+		    <div class="shop-table myshop text-right">
+		    	<button type="submit" class="btn btn-sm btn-query" ng-click="finishSubmit()">完成</button>
+		    </div>
+	    </div>
+    </div>
+
+
+    <div class="footer">
+    	版板所有 @  2016  中国电信贵州分公司
+    </div>
+
+	<script src="../resources/js/angular.min.js"></script>
+    <script src="../resources/js/angular-touch.min.js"></script>
+    <script src="../resources/js/angular-animate.min.js"></script>
+    <script src="../resources/js/angular-aria.min.js"></script>
+    <script src="../resources/js/jquery.min.js"></script>
+    <script src="../resources/js/bootstrap.min.js"></script>
+    <script src="../resources/js/angular-locale_zh-cn.js"></script>
+    <script src="../resources/js/ui-bootstrap.js"></script>
+    <script src="../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../resources/js/lodash.js"></script>
+    <script src="../resources/js/sweetalert.min.js"></script>
+    <script src="../resources/js/mock.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>
