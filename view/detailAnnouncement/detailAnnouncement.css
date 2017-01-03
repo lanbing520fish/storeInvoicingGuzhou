@@ -1,0 +1,82 @@
+.addSupplier {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+}
+.top-title{
+	width:96%;
+	text-align:center;
+	border-bottom:1px dashed #a5a5a5;
+	margin:0 auto;
+	overflow: hidden;
+}
+.top-title .title{
+	font-size: 16px;
+	color:#731dca;
+	font-weight:bold;
+	line-height: 45px;
+	margin-top:5px;
+}
+.top-title .date{
+	font-size:12px;
+	color:#a5a5a5;
+	margin-bottom: 10px;
+}
+.content{
+	width:96%;
+	margin:0 auto;
+}
+.attachments{
+    line-height:27px;
+    background: #eddbff;
+    margin:10px 0;
+    font-weight:bold;
+}
+.attachments .wrds{
+	display:inline-block;
+	text-align: center;
+	color:#000;
+	font-size:14px;
+	margin-left:28px;
+}
+.attachments .attm{
+    display: inline-block;
+    font-size:12px;
+    color:#219998;
+}
+.attachments .attm i{
+    color:#219998;
+    font-size:14px;
+    margin: 0 5px 0 10px;
+}
+.attachments .attm span{
+	margin-right: 10px;
+}
+.attachments .attm:after{
+    content: "|";
+    font-size: 15px;
+}
+.attachments .attm:last-child:after{
+    content: "";
+}
+.text-content{
+	font-size:14px;
+	color:#51485a;
+	margin:10px 0 0 21px;
+	line-height: 25px;
+}
+.text-content .pcnt{
+	line-height: 27px;
+	margin-bottom: 20px;
+}
+.text-content .p1{
+	text-indent: 5px;
+}
+.text-content .p1:last-child{
+	padding-bottom: 50px;
+}
+
+
+
