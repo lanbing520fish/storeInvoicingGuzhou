@@ -1,0 +1,126 @@
+
+.btn-search{
+    display: block!important;
+}
+
+.btm-line{
+    border-bottom: 1px dashed #d2d2d2;
+}
+
+.addSupplier-head{
+    padding: 5px;
+}
+
+.addSupplier {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+}
+
+.condition-query {
+    height: 80px;
+    padding: 10px 10px 10px 0;
+    background: url('../../resources/images/query-bg.png') no-repeat 0 0;
+    background-color: #f8f8f8;
+    border-bottom: 1px dashed #d2d2d2;
+}
+.staffMan {
+    height: 80px;
+    padding: 10px 0px 10px 0;
+    background-color: #f8f8f8;
+    border-bottom: 1px dashed #d2d2d2;
+}
+
+.condition-query-title {
+    width: 20px;
+    height: 50px;
+    margin: 5px 0 5px 8px;
+    line-height: 25px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.condition-query-box {
+    width: calc(100% - 40px);
+}
+
+.btn-query {
+   background:#eddbff;
+   border:1px solid #ceaaf2;
+   color:#764aa2; 
+}
+
+.result-list {
+    padding: 5px 5px 20px;
+}
+
+.result-head {
+    margin-bottom: 5px;
+}
+
+.model-header {
+    height: 25px;
+    line-height: 25px;
+}
+
+.model-img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 2px 4px;
+}
+
+.model-title {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.attachments{
+    width:100%;
+    line-height:27px;
+    background: #eddbff;
+}
+.attachments .attm{
+    display: inline-block;
+    font-size:12px;
+    color:#343434;
+}
+.attachments .attm i{
+    color:#9c79c0;
+    font-size:17px;
+    margin: 0 5px 0 10px;
+}
+.del-btn{
+    width: 60px;
+    text-align: center;
+    color: #f2232a;
+    border:0;
+    background: #eddbff;
+}
+.attachments .attm:after{
+    content: "|";
+    color:#764aa2;
+    font-size: 15px;
+}
+.attachments .attm:last-child:after{
+    content: "";
+}
+.choices{
+    line-height: 26px;
+}
+.choices li{
+   display: inline-block;
+   color:#505050;
+   width:90px; 
+}
+.choices li input[type="radio"]{
+    vertical-align: top;
+    margin-right:5px;
+    margin-top: 6px;
+}
+
+
