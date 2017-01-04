@@ -6,3 +6,5 @@
 * 库存统计 **inventory**
 * 销售统计查询 **salesStatistics**
 * 公告管理 **announcementManage**
+* 添加公告 **addAnnouncement**
+* 公告详情 **detailAnnouncement**
