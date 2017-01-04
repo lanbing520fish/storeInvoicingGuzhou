@@ -122,5 +122,59 @@
     margin-right:5px;
     margin-top: 6px;
 }
-
-
+.city-check-box {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    z-index: 99;
+    width: calc(100% - 90px);;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.city-check-box.another{
+    width: calc(100% - 110px);
+}
+.btn-location {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 25px;
+    padding: 0;
+    background-color: #f5f5f5;
+    border-color: #ccc;
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    line-height: 25px;
+    color: #c097e8;
+    text-align: center;
+    overflow: hidden;
+}
+.btn-location .iconfont {
+    font-size: 16px;
+}
+.city-content {
+    padding: 10px;
+}
+.city-item {
+    display: inline-block;
+    width: 68px;
+    height: 26px;
+    margin: 0 2px 1px 0;
+    line-height: 26px;
+    color: #666;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.city-item.current {
+    background-color: #a870e0;
+    color: #fff;
+    border-radius: 5px;
+}
+.zhezhao{
+   height:100%; width:100%; position:fixed; top:0; left:0; z-index:98;
+}
