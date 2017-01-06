@@ -49,21 +49,19 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label"><i class="iconfont red-star">&#xe692;</i>附件：</label>
-                                <button class="btn btn-sm btn-query" type="button"><i class="iconfont">&#xe627;</i> 上传附件</button>
+                                <input type="file" id="file1" class="fileup" multiple>
+                                <span class="btn btn-sm btn-query"><i class="iconfont">&#xe627;</i> 上传附件</span>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb10">
+                    <div class="row mb10" ng-if="files.length">
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <label class="control-label"></label>
-                                <ul class="attachments">
-                                  <li class="attm">
-                                    <i class="iconfont">&#xe635;</i><span>巡检单详明.doc</span><button class="del-btn">删除</button>
-                                  </li>
-                                  <li class="attm">
-                                    <i class="iconfont">&#xe635;</i><span>巡检单详明.doc</span><button class="del-btn">删除</button>
-                                  </li>
+                                <ul class="attachments" ng-cloak>
+                                    <li class="attm" ng-repeat="file in files">
+                                        <i class="iconfont">&#xe635;</i><span ng-bind="file.name"></span><button class="del-btn" ng-click="btn_remove(file)">删除</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -123,6 +121,7 @@
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/uploader.min.js"></script>
     <script src="addAnnouncement.js"></script>
 </body>
 
