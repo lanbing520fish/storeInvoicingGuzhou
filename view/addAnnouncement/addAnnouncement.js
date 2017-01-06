@@ -1,9 +1,38 @@
 angular
-    .module('staffModule', ['ui.bootstrap'])
-    .controller('resultCtrl', ['$scope', function($scope) {
+    .module('staffModule', ['ui.bootstrap', 'ui.uploader'])
+    .controller('resultCtrl', ['$scope', '$log', 'uiUploader', function($scope, $log, uiUploader) {
+        // 删除单个file
+        $scope.btn_remove = function(file) {
+            $log.info('deleting=' + file);
+            uiUploader.removeFile(file);
+        };
+        // 上传文件
+        $scope.btn_upload = function() {
+            $log.info('uploading...');
+            uiUploader.startUpload({
+                url: 'https://posttestserver.com/post.php',
+                concurrency: 2,
+                onProgress: function(file) {
+                    $log.info(file.name + '=' + file.humanSize);
+                    $scope.$apply();
+                },
+                onCompleted: function(file, response) {
+                    $log.info(file + 'response' + response);
+                }
+            });
+        };
 
+        // 上传文件列表
+        $scope.files = [];
+
+        var element = document.getElementById('file1');
+        element.addEventListener('change', function(e) {
+            var files = e.target.files;
+            uiUploader.addFiles(files);
+            $scope.files = uiUploader.getFiles();
+            $scope.$apply();
+        });
     }])
-    // 城市
     .controller('cityCheckCtrl', ['$scope', function($scope) {
         $scope.citys = [{
             areaId: '009',
