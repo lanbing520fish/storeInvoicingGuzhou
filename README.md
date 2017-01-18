@@ -8,3 +8,7 @@
 * 公告管理 **announcementManage**
 * 添加公告 **addAnnouncement**
 * 公告详情 **detailAnnouncement**
+
+* 积分调整 **membershiPointManage**
+* 积分兑换 **membPointsExchange**
+* 积分历史明细 **detailMembPointHistory**
