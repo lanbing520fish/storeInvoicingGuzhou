@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>操作日志</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="operationLog.css">
+</head>
+
+<body ng-app="operationLogModule">
+    <!-- DOM结构开始 -->
+    <div class="history top-line wavy-line">
+        <!-- 条件查询 -->
+        <div class="condition-query fn-clear" ng-controller="conditionQuery">
+            <p class="condition-query-title fn-left">搜
+                <br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row mb10">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">员工姓名：</label>
+                                <input type="text" placeholder="请输入员工姓名" class="form-control reduce-width">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">员工工号：</label>
+                                <input type="text" placeholder="请输入员工工号" class="form-control reduce-width">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">发布日期：</label>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="startDate" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.startDate" is-open="startPopupOpened" min-date="minStartDate" max-date="maxStartDate" datepicker-options="startDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="startOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="datepicker-text fn-left">至</div>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="endDate" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.endDate" is-open="endPopupOpened" min-date="minEndDate" max-date="maxEndDate" datepicker-options="endDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="endOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">操作门店：</label>
+                                <div class="select-box">
+                                    <select class="form-control" id="retailPriceItem">
+                                        <option value="">请选择门店</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-xs-8 text-right">
+                            <div class="form-group btn-search">
+                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 结果列表 -->
+        <div class="result-list">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">操作日志明细</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="result-table">
+                <div class="result-table">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="10%">序号</th>
+                                <th width="10%">员工工号</th>
+                                <th width="10%">员工名称</th>
+                                <th width="10%">操作门店编码</th>
+                                <th>操作门店</th>
+                                <th width="15%">操作时间</th>
+                                <th width="15%">操作内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>1</p>
+                                </td>
+                                <td>
+                                    <p>GY1001</p>
+                                </td>
+                                <td>
+                                    <p>莫伊</p>
+                                </td>
+                                <td>
+                                    <p>7702060211</p>
+                                </td>
+                                <td>
+                                    <p>贵阳鼓楼营业厅</p>
+                                </td>
+                                <td>
+                                    <p>2016-01-12 12:12:12</p>
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>2</p>
+                                </td>
+                                <td>
+                                    <p>GY1002</p>
+                                </td>
+                                <td>
+                                    <p>王小阳</p>
+                                </td>
+                                <td>
+                                    <p>7702044556</p>
+                                </td>
+                                <td>
+                                    <p>贵阳鼓楼营业厅</p>
+                                </td>
+                                <td>
+                                    <p>2016-01-12 12:12:12</p>
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-cloak ng-if="queryTypeResultList && !queryTypeResultList.length">
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">2</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular-locale_zh-cn.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="operationLog.js"></script>
+</body>
+
+</html>
