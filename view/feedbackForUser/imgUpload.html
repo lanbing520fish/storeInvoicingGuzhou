@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>意见反馈</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="feedbackForUser.css">
+</head>
+<body ng-app="app">
+	<section ng-controller="controlName">
+    <img src="image/user-tuijian/tuijian_banner.png" />
+    <div >
+        <form ng-submit="submit_form()">
+            <input type="text" name="aaa" placeholder="商品名称：" ng-model="form.goods_name" />
+            <input type="text" name="bbb" placeholder="商品网址：" ng-model="form.goods_url" />
+            <textarea placeholder="您宝贵的留言就是我们前进的动力！" ng-model="form.user_msg"></textarea>
+            <div>
+                <div ng-repeat="item in thumb">
+                <!-- 采用angular循环的方式，对存入thumb的图片进行展示 -->
+                    <label>
+                        <img ng-src="{{item.imgSrc}}"/>
+                    </label>
+                    <span ng-if="item.imgSrc" ng-click="img_del($index)"></span>
+                </div>
+                <div ng-repeat="item in thumb_default">
+                <!-- 这里之所以写个循环，是为了后期万一需要多个‘加号’框 -->
+                    <label>
+                        <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)"/>
+                    </label>
+                </div>
+            </div>
+            <p>
+            <!-- (*^_^*)请详细描述您的需求，有助于我们快速定位并解决问题，希望我们的产品和服务能得到您的肯定。</p> -->
+            <input type="submit" name="" value="提 交" />
+        </form>
+    </div>
+</section>
+</body>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/uploader.min.js"></script>
+    <script src="upload.js"></script>
+</body>
+
+</html>

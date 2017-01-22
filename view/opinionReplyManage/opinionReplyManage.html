@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>意见回复管理</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="opinionReplyManage.css">
+</head>
+
+<body ng-app="staffModule">
+    <!-- DOM结构开始 -->
+    <div class="addSupplier top-line wavy-line">
+        <uib-tabset active="active">
+            <uib-tab index="0">
+                <uib-tab-heading>
+                    <b>所有意见 </b><span class="purple-color">[200]</span>
+                </uib-tab-heading>
+                <div class="content">
+                    <div class="cont-titl">意见标题<span class="date">回复 | 时间</span></div>
+                    <ul class="mesg">
+                        <li>
+                            <div class="mesg-titl"><a href="#">全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="mesg-titl"><a href="#">全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-controller="paginationCtrl" class="text-center page">
+                        <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1">
+                <uib-tab-heading>
+                    <b>未回复意见 </b><span class="purple-color">[20]</span>
+                </uib-tab-heading>
+                <div class="content">
+                    <div class="cont-titl">意见标题<span class="date">回复 | 时间</span></div>
+                    <ul class="mesg">
+                        <li>
+                            <div class="mesg-titl"><a href="#">qqqq全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="mesg-titl"><a href="#">全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-controller="paginationCtrl" class="text-center page">
+                        <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="2">
+                <uib-tab-heading>
+                    <b>当日意见 </b><span class="purple-color">[20]</span>
+                </uib-tab-heading>
+                <div class="content">
+                    <div class="cont-titl">意见标题<span class="date">回复 | 时间</span></div>
+                    <ul class="mesg">
+                        <li>
+                            <div class="mesg-titl"><a href="#">rrrr全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="mesg-titl"><a href="#">全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-controller="paginationCtrl" class="text-center page">
+                        <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="3">
+                <uib-tab-heading>
+                    <b>已回复 </b><span class="purple-color">[180]</span>
+                </uib-tab-heading>
+                <div class="content">
+                    <div class="cont-titl">意见标题<span class="date">回复 | 时间</span></div>
+                    <ul class="mesg">
+                        <li>
+                            <div class="mesg-titl"><a href="#">wsss全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="mesg-titl"><a href="#">全网通和公开版的区别,注意是区别,不要说公开版是全网通,那干嘛还要分公开版和全网通版呢?!!!</a></div>
+                            <div class="mesg-content">
+                                <span class="info"><i class="iconfont">&#xe7b0;</i>[贵阳市]新街口白下区营厅</span>
+                                <span class="info"><i class="iconfont">&#xe631;</i>李小明</span>
+                                <span class="info"><i class="iconfont">&#xe737;</i>18098788282</span>
+                                <div class="date">
+                                    <span>已回复（0）｜2016-12-28 14:49</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-controller="paginationCtrl" class="text-center page">
+                        <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset> 
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/uploader.min.js"></script>
+    <script src="opinionReplyManage.js"></script>
+</body>
+
+</html>
