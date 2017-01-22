@@ -1,0 +1,192 @@
+.btn-search{
+    display: block!important;
+}
+
+.btm-line{
+    border-bottom: 1px dashed #d2d2d2;
+}
+
+.addSupplier-head{
+    padding: 5px;
+}
+
+.addSupplier {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+}
+.model-header {
+    height: 25px;
+    line-height: 25px;
+}
+
+.model-img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 2px 4px;
+}
+
+.model-title {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+.feedback-list{
+    position: relative;
+    border-bottom: 1px solid #ececec;
+}
+.feedback-list .left-img{
+    position: absolute;
+    left: 0;
+    width:125px;
+    text-align: center;
+}
+.feedback-list .left-img img{
+    width:76px;
+    height:72px;
+    border:1px solid #ececec;
+    margin:17px 0 0 0;
+}
+.u-name{
+    line-height: 27px;
+    color:#121212;
+    font-weight: bold;
+}
+.feedback-list .right-feedback{
+    margin:0 10px 0 125px;
+    overflow: hidden;
+    border-left:1px solid #ececec;
+    padding-left:10px;
+}
+.right-feedback .suggest{
+    border-bottom:1px dashed #ececec;
+}
+.right-feedback .titl{
+    margin:17px 0 4px 10px;
+    color:#271d1d;
+    position: relative;
+}
+.right-feedback .titl i{
+    color:#a19086;
+    margin-right:8px;
+    vertical-align: top;
+}
+.right-feedback .titl .datetime{
+    position: absolute;
+    right:0;
+    color: #afafaf;
+}
+.right-feedback .suggest-wrds{
+    line-height: 22px;
+    color:#676767;
+    margin:0 0 10px 32px;
+}
+.right-feedback .feed{
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+.right-feedback .feed .titl i{
+    color:#f68846;
+    font-size: 16px;
+    margin-right:6px;
+}
+.page{
+    height:40px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+}
+.page ul{
+    margin-top:6px;
+}
+.page-num{
+    top:12px;
+}
+.toFeedback{
+    background: #f8f8f8;  
+    padding-bottom: 30px;
+}
+.toFeedback .head-titl{
+    line-height: 32px;
+    border-top:2px solid #24c7b6;
+    color:#24c7b6;
+    text-indent: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom:10px;
+}
+.toContent .form-group label{
+    display: inline-block;
+    width: 84px;
+    text-align: right;
+}
+.form-group textarea{
+    border-radius: 0;
+    border:1px solid #e2e2e2;
+}
+.picurs li{
+    float: left;
+    width:90px;
+    height:75px;
+    border:1px solid #e2e2e2;
+    margin-right:7px;
+    position: relative;
+    text-align:center;
+}
+.picurs li .nouse{
+    height:100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.picurs li img{
+    max-width:90px;
+    max-height:75px;
+    vertical-align:middle;
+}
+.fileup{
+    opacity:0;
+    width:90px;
+    height:75px;
+}
+.upload{
+    width:90px;
+    height:75px;
+    background:#f1f1f1 url(../../resources/images/add-pic.png) center no-repeat;
+    border:1px dashed #e2e2e2;
+}
+.del-btn{
+    position: absolute;
+    border: 0;
+    top: -2px;
+    right: -1px;
+    background: transparent;
+    padding: 0;
+    color: #fb441e;
+    font-size: 18px;
+    opacity: 0;
+}
+.del-btn:hover{
+    opacity: 1;
+}
+.form-group input[type="text"], .form-group input[type="number"], .form-group input[type="password"]{
+    border:1px solid #e2e2e2;
+    border-radius: 0;
+}
+.form-group .form-control.teltext{
+    width: 305px !important;
+}
+.toFeedback .remind{
+    color:#b5b5b5;
+    margin-left:10px;
+}
+
+
+
+
+
+
+
+
+
+

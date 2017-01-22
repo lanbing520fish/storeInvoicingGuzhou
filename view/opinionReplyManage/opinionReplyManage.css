@@ -1,0 +1,101 @@
+.addSupplier {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+    padding-bottom:10px;
+}
+.purple-color{
+	color:#8537d4;
+}
+.nav-tabs > li > a{
+	margin-right: 0; 
+    line-height: 38px; 
+    border: 0; 
+    border-radius: 0; 
+    padding:0 15px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+	border:0;
+	border-bottom: 2px solid #a870e0;
+	background: url(../../resources/images/arrowup-icon.png) center bottom no-repeat;
+	background-color: transparent;
+}
+.nav > li > a:hover, .nav > li > a:focus{
+	background-color: transparent;
+}
+a{
+	color:#0e0e0e;
+}
+.nav{
+	color:#0e0e0e;
+	font-size: 14px;
+}
+.tab-content .content{
+	padding:12px 20px 0;
+}
+.content .cont-titl{
+	position: relative;
+	height:30px;
+	line-height: 30px;
+	background: #a870e0;
+	text-indent: 100px;
+	color:#fff;
+}
+.content .cont-titl .date{
+	position: absolute;
+	right:84px;
+}
+.mesg li{
+	margin:10px 0 0 10px;
+	border-bottom: 1px dashed #ddd;
+}
+.mesg .mesg-titl{
+	background: url(../../resources/images/remind-icon.png) left 0 no-repeat;
+	width:100%;
+	min-height: 26px;
+	line-height:26px;
+	padding-left: 30px;
+}
+.mesg .mesg-titl a{
+	color:#2e2e2e;
+	font-weight: bold;
+	font-size: 14px;
+}
+.mesg .mesg-titl a:hover{
+	color:#8537d4;
+	text-decoration: underline;
+}
+.mesg-content{
+	margin: 5px 0 10px 30px;
+	position: relative;
+}
+.mesg-content .info{
+	color:#726a6a;
+	margin-right:20px;
+}
+.mesg-content .info i{
+	color:#aa82d1;
+}
+.mesg-content .date{
+	position: absolute;
+	right:15px;
+	color:#726a6a;
+	top:0;
+}
+.page{
+	margin:25px 0 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
