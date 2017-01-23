@@ -12,3 +12,5 @@
 * 积分调整 **membershiPointManage**
 * 积分兑换 **membPointsExchange**
 * 积分历史明细 **detailMembPointHistory**
+
+* 操作日志 **operationLog**
