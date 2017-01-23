@@ -72,7 +72,7 @@
                                     <li ng-repeat="f in files">
                                         <span class="nouse"></span>
                                         <img ngf-thumbnail="f">
-                                        <button class="del-btn iconfont" ng-click="btn_remove($index)">&#xe65f;</button>
+                                        <div class="delete"><button class="btn btn-sm btn-del" ng-click="btn_remove($index)">删除</button></div>
                                     </li>
                                     <li class="upload">
                                         <input class="fileup" ngf-select="uploadFiles($files, $invalidFiles)" multiple accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
