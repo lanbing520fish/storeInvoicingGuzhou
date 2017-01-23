@@ -1,6 +1,6 @@
 angular
-    .module('staffModule', ['ui.bootstrap', 'ngFileUpload', 'ui.uploader'])
-    .controller('resultCtrl', ['$scope', '$log', 'Upload', '$timeout', 'uiUploader', function ($scope, $log, Upload, $timeout, uiUploader) {
+    .module('staffModule', ['ui.bootstrap', 'ngFileUpload'])
+    .controller('resultCtrl', ['$scope', '$log', 'Upload', '$timeout', function ($scope, $log, Upload, $timeout) {
 	   	$scope.files = [];
 	   	$scope.uploadFiles = function(files, errFiles) {
 	        $scope.files = $scope.files ? _.concat($scope.files, files) : files;
@@ -21,10 +21,8 @@ angular
 	        });
 	    }
 	    // 删除单个file
-        // $scope.btn_remove = function(file) {
-        // 	debugger
-        //     $log.info('deleting=' + file);
-        //     uiUploader.removeFile(file);
-        // };
+        $scope.btn_remove = function(index) {
+        	$scope.files.splice(index,1)
+        };
 	}])
    
