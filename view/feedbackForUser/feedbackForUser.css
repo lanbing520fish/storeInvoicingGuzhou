@@ -141,7 +141,7 @@
 }
 .picurs li img{
     max-width:90px;
-    max-height:75px;
+    max-height:70px;
     vertical-align:middle;
 }
 .fileup{
@@ -155,19 +155,28 @@
     background:#f1f1f1 url(../../resources/images/add-pic.png) center no-repeat;
     border:1px dashed #e2e2e2;
 }
-.del-btn{
+.picurs .delete{
     position: absolute;
-    border: 0;
-    top: -2px;
-    right: -1px;
-    background: transparent;
-    padding: 0;
-    color: #fb441e;
-    font-size: 18px;
+    width:100%;
+    height:100%;
+    background: rgba(40,40,40,0.3);
+    top:0;
+    left:0;
     opacity: 0;
 }
-.del-btn:hover{
+.picurs .delete:hover{
     opacity: 1;
+}
+.btn-del{
+    background: #a870e0;
+    color:#fff;
+    padding:0px 6px;
+    margin-top:27px;
+}
+.btn-del:hover {
+    background-color: #9249db;
+    border-color: #9249db;
+    color: #fff;
 }
 .form-group input[type="text"], .form-group input[type="number"], .form-group input[type="password"]{
     border:1px solid #e2e2e2;
