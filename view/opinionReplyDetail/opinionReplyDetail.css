@@ -1,0 +1,173 @@
+.addSupplier {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+    padding-bottom:10px;
+}
+.purple-color{
+	color:#8537d4;
+}
+.mesg{
+	border-bottom: 1px solid #ddd;
+	padding:10px 10px 0;
+}
+.mesg .mesg-titl{
+	background: url(../../resources/images/remind-icon.png) left 0 no-repeat;
+	width:100%;
+	min-height: 26px;
+	line-height:26px;
+	padding-left: 30px;
+	color:#2e2e2e;
+	font-weight: bold;
+	font-size: 14px;
+}
+.mesg-content{
+	margin: 5px 0 10px 30px;
+	position: relative;
+}
+.mesg-content .info{
+	color:#726a6a;
+	margin-right:20px;
+}
+.mesg-content .info i{
+	color:#aa82d1;
+}
+.mesg-content .date{
+	position: absolute;
+	right:15px;
+	color:#726a6a;
+	top:0;
+}
+.toFeedback{
+    background: #fcfcfc; 
+    padding:0 30px 16px;
+}
+.toFeedback .head-titl{
+    line-height: 32px;
+    color:#a870e0;
+}
+.form-group{
+	padding-left:0;
+}
+.toContent .form-group label{
+    display: inline-block;
+    width: 84px;
+    text-align: right;
+}
+.form-group textarea{
+    border-radius: 0;
+    border:1px solid #e2e2e2;
+}
+
+.picurs li{
+    float: left;
+    width:90px;
+    height:75px;
+    border:1px solid #e2e2e2;
+    margin-right:7px;
+    position: relative;
+    text-align: center;
+}
+.picurs li .nouse{
+    height:100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.picurs li img{
+	max-width:90px;
+    max-height:75px;
+    vertical-align: middle;
+}
+.fileup{
+    opacity:0;
+    width:90px;
+    height:75px;
+}
+.upload{
+    width:90px;
+    height:75px;
+    background:#f1f1f1 url(../../resources/images/add-pic.png) center no-repeat;
+    border:1px dashed #e2e2e2;
+}
+.del-btn{
+    position: absolute;
+    border: 0;
+    top: -2px;
+    right: -1px;
+    background: transparent;
+    padding: 0;
+    color: #fb441e;
+    font-size: 18px;
+}
+.toFeedback .replybtn{
+	border:0;
+	float: right;
+}
+.form-group input[type="text"], .form-group input[type="number"], .form-group input[type="password"]{
+    border:1px solid #e2e2e2;
+    border-radius: 0;
+}
+.form-group .form-control.teltext{
+    width: 305px !important;
+}
+.toFeedback .remind{
+    color:#b5b5b5;
+    margin-left:10px;
+}
+.toFeedback .remind-wrds{
+	width:360px;
+	border:0;
+	line-height: 18px;
+}
+.toFeedback .remind-wrds .p2{
+	color:#959595;
+}
+.reply{
+	padding:10px 33px 30px;
+	border-top:1px solid #ddd;
+	background: #fff;
+}
+.reply .titl{
+	color:#272727;
+	font-size:14px;
+}
+.reply .titl i{
+	color:#d1d1d1;
+	margin-right: 5px;
+	font-size:16px;
+}
+.reply .suggest-wrds{
+	margin:12px 0 0 15px;
+	border-bottom: 1px dotted #b7b7b7;
+}
+.reply .suggest-wrds p{
+	line-height: 20px;
+	color:#464646;
+	text-indent: 5px;
+}
+.reply .suggest-wrds .p1{
+	color:#272727;
+	position: relative;
+}
+.reply .suggest-wrds .datetime{
+	position: absolute;
+	top:0;
+	right:0;
+	color:#929292;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

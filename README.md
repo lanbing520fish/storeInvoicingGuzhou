@@ -13,4 +13,9 @@
 * 积分兑换 **membPointsExchange**
 * 积分历史明细 **detailMembPointHistory**
 
+
 * 操作日志 **operationLog**
+
+* 意见反馈 **feedbackForUser**
+* 意见回复详情 **opinionReplyDetail**
+* 意见回复管理 **opinionReplyManage**
