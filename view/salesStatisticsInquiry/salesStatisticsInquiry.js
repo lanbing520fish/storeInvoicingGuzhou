@@ -1,8 +1,8 @@
 angular
-    .module('salesStatisticsModule', ['ui.bootstrap'])
-    
-    .controller('salesStatisticsQuery', ['$scope', '$rootScope', '$timeout', function($scope, $rootScope, $timeout) {
-        
+    .module('salesStatisticsInquiryModule', ['ui.bootstrap'])
+
+    .controller('salesStatisticsInquiryQuery', ['$scope', '$rootScope', '$timeout', function($scope, $rootScope, $timeout) {
+
         $scope.conditionQueryForm = {
             createStartDt: '', //制单日期开始
             createEndDt: '', //制单日期结束
