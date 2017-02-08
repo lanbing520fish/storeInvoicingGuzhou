@@ -17,3 +17,6 @@
 * 意见回复管理 **opinionReplyManage**
 
 * 会员积分历史明细及详情 **IntegralHistoryDetail**
+
+* 会员信息管理 **membershipInfoManage**
+* 新增会员 **addMembership**
