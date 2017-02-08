@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>积分历史明细</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="IntegralHistoryDetail.css">
+</head>
+
+<body ng-app="staffModule">
+    <!-- DOM结构开始 -->
+    <div class="history top-line wavy-line" ng-controller="addAdjustInModalCtrl">
+        <!-- 条件查询 -->
+        <div class="condition-query fn-clear" ng-controller="conditionQuery">
+            <p class="condition-query-title fn-left">搜
+                <br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row mb10">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">起止日期：</label>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="startDate" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.startDate" is-open="startPopupOpened" min-date="minStartDate" max-date="maxStartDate" datepicker-options="startDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="startOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="datepicker-text fn-left">至</div>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="endDate" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.endDate" is-open="endPopupOpened" min-date="minEndDate" max-date="maxEndDate" datepicker-options="endDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="endOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group btn-search">
+                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>      
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 结果列表 -->
+        <div class="result-list" ng-controller="resultCtrl">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">会员积分历史明细列表</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="result-table">
+                <div class="result-table">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="18%">所属门店</th>
+                                <th width="13%">会员姓名</th>
+                                <th width="12%">账户变更前积分</th>
+                                <th width="12%">账户变更后积分</th>
+                                <th width="12%">变更值</th>
+                                <th width="13%">变更类型</th>
+                                <th width="13%">时间</th>
+                                <th>操作</th>                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>                                   
+                                <td>
+                                    <p>阜宁山阳城河路社区店</p>
+                                </td>
+                                <td>
+                                    <p>莫伊</p>
+                                </td>
+                                <td>
+                                    <p>7008</p>
+                                </td>
+                                <td>
+                                    <p>7007</p>
+                                </td>
+                                <td>
+                                    <p>+1</p>
+                                </td>
+                                <td>
+                                    <p>减少</p>
+                                </td>
+                                <td>
+                                    <p>2016-07-25</p>
+                                </td>  
+                                <td>
+                                    <button class="btn btn-xs btn-edit" ng-click="detailPoints()"><i class="iconfont">&#xe60b;</i> 详情</button>    
+                                </td>
+                            </tr>
+                            <tr>                                   
+                                <td>
+                                    <p>阜宁山阳城河路社区店</p>
+                                </td>
+                                <td>
+                                    <p>莫伊</p>
+                                </td>
+                                <td>
+                                    <p>7008</p>
+                                </td>
+                                <td>
+                                    <p>7007</p>
+                                </td>
+                                <td>
+                                    <p>+1</p>
+                                </td>
+                                <td>
+                                    <p>减少</p>
+                                </td>
+                                <td>
+                                    <p>2016-07-25</p>
+                                </td>  
+                                <td>
+                                    <button class="btn btn-xs btn-edit" ng-click="detailPoints()"><i class="iconfont">&#xe60b;</i> 详情</button>    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-cloak ng-if="queryTypeResultList && !queryTypeResultList.length">
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+        </div>
+        <!-- 详情 -->
+        <script type="text/ng-template" id="detailAccountsModal.html">
+            <div class="modal-header">
+                <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
+                <h3 class="modal-title" id="serial-number-title"><img class="icon" src="../../resources/images/icon-list1.png">积分历史明细详情</h3>
+            </div>
+            <div class="history-detail-infomation">
+                <div class="info-detail-form mb100">
+                    <form name="infomationForm" class="form-inline" role="form">
+                        <div class="row dashed-line mlf24">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <p class="detail-msg">积分历史相关信息</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row dashed-line mlf24">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>兑换单号：</span>100000000142</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>兑换人：</span>王老板</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>兑换商品：</span>苹果耳机</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row dashed-line mlf24">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>所需积分值：</span>1</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>会员名称：</span>莫伊</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>兑换时间：</span>2016-07-25</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row dashed-line mlf24">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <p class="detail-msg"><span>备注：</span>积分兑换单</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">关闭</button>
+            </div>
+        </script>
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular-locale_zh-cn.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="IntegralHistoryDetail.js"></script>
+</body>
+
+</html>
