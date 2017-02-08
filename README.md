@@ -19,3 +19,5 @@
 * 意见反馈 **feedbackForUser**
 * 意见回复详情 **opinionReplyDetail**
 * 意见回复管理 **opinionReplyManage**
+
+* 会员积分历史明细及详情 **IntegralHistoryDetail**
