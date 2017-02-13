@@ -29,7 +29,7 @@ angular
                 url: httpConfig.siteUrl + '/chain/config/storage/q/loadStorage',
                 method: 'POST',
                 headers: httpConfig.requestHeader,
-                data: $.param(param)
+                data: 'param=' + JSON.stringify(param)
             }).success(function (data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面
@@ -48,7 +48,6 @@ angular
                 url: httpConfig.siteUrl + '/chain/common/q/loadOfferCategory',
                 method: 'POST',
                 headers: httpConfig.requestHeader,
-                // data: $.param(param)
             }).success(function (data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面
@@ -67,7 +66,7 @@ angular
                 url: httpConfig.siteUrl + '/chain/stock/q/qryStockAndWorth',
                 method: 'POST',
                 headers: httpConfig.requestHeader,
-                data: $.param(param)
+                data: 'param=' + JSON.stringify(param)
             }).success(function (data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面
@@ -86,7 +85,7 @@ angular
                 url: httpConfig.siteUrl + '/chain/stock/q/qryStockAndWorthDetail',
                 method: 'POST',
                 headers: httpConfig.requestHeader,
-                data: $.param(param)
+                data: 'param=' + JSON.stringify(param)
             }).success(function (data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面

@@ -21,7 +21,7 @@ angular
                 url: httpConfig.siteUrl + '/chain/retail/order/q/saleSumByCond',
                 method: 'POST',
                 headers: httpConfig.requestHeader,
-                data: $.param(param)
+                data: 'param=' + JSON.stringify(param)
             }).success(function (data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面
@@ -40,7 +40,7 @@ angular
                 url: httpConfig.siteUrl + '/chain/retail/order/q/qrySaleStatistic',
                 method: 'POST',
                 headers: httpConfig.requestHeader,
-                data: $.param(param)
+                data: 'param=' + JSON.stringify(param)
             }).success(function (data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面
