@@ -363,3 +363,6 @@
     height: 26px;
     line-height: 26px;
 }
+.border-right{
+    border-right: 1px solid #ebebeb;
+}

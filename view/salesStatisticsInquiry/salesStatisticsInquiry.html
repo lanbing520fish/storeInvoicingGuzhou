@@ -17,20 +17,20 @@
         <div class="alarm-query fn-clear">
             <p class="alarm-query-title fn-left">搜<br/>索</p>
             <div class="condition-query-box fn-right">
-                <form name="conditionQueryForm" class="form-inline" role="form">
+                <form name="querySalesForm" class="form-inline" role="form">
                     <div class="row">
                         <div class="col-xs-4">
                             <div class="form-group">
-                                <label class="control-label">起止月份：</label>
+                                <label class="control-label">起止日期：</label>
                                 <div class="datepicker-input fn-left">
-                                    <input type="text" id="createStartDt" class="form-control modify-input" uib-datepicker-popup="{{format}}" readonly ng-model="conditionQueryForm.createStartDt" is-open="startPopupOpened" datepicker-options="startDateOptions" show-button-bar='false' />
+                                    <input type="text" id="createStartDt" class="form-control modify-input" uib-datepicker-popup="{{format}}" readonly ng-model="querySalesForm.createStartDt" is-open="startPopupOpened" datepicker-options="startDateOptions" show-button-bar='false' />
                                     <span class="icon_time" ng-click="startOpen()">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </span>
                                 </div>
                                 <div class="datepicker-text fn-left">至</div>
                                 <div class="datepicker-input fn-left">
-                                    <input type="text" id="createEndDt" class="form-control modify-input" uib-datepicker-popup="{{format}}" readonly ng-model="conditionQueryForm.createEndDt" is-open="endPopupOpened" datepicker-options="endDateOptions" show-button-bar='false' />
+                                    <input type="text" id="createEndDt" class="form-control modify-input" uib-datepicker-popup="{{format}}" readonly ng-model="querySalesForm.createEndDt" is-open="endPopupOpened" datepicker-options="endDateOptions" show-button-bar='false' />
                                     <span class="icon_time" ng-click="endOpen()">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </span>
@@ -60,25 +60,31 @@
                     </div>
                 </div>
             </div>
-            <div class="statQuery-msg fn-clear">
+            <div class="statQuery-msg fn-clear" ng-repeat="item in orderStatList" ng-cloak>
                 <div class="fn-left stat-time">
-                    <div class="stat-content stat-bottom-line"><span class="stat-title">统计时间段：</span><span>2016-11-27至 2016-12-22</span></div>
-                    <div class="stat-content"><span class="stat-title">总计销售金额：</span><span class="nub-big">￥9047.00</span></div>
+
+                    <div class="stat-content stat-bottom-line"><span class="stat-title">统计时间段：</span><span ng-bind="item.startDt"></span> 至 <span ng-bind="item.endDt"></span></div>
+
+                    <div class="stat-content"><span class="stat-title">总计销售金额：</span><span class="nub-big">￥<span ng-bind="item.totalAmount"></span></span></div>
+
                 </div>
                 <div class="fn-left stat-table">
                     <table>
                         <tr>
                             <td class="bg-gray">收款方式：</td>
                             <td rowspan="2"><img src="../../resources/images/stat-table-bg.jpg"></td>
-                            <td width="100" class="border-right"><p class="line-bottom">POS机</p></td>
-                            <td width="109" class="border-right"><p class="line-bottom">支付宝支付</p></td>
-                            <td width="118"><p class="line-bottom">现金</p></td>
+                            <td width="110" ng-repeat="y in item.sumList" ng-class=
+                            "{'border-right':($index + 1 != item.sumList.length)}">
+                                <p class="line-bottom" ng-bind="y.payCd | paymentMethodCdType"></p>
+
+                            </td>
                         </tr>
                         <tr>
                             <td class="bg-gray">收款金额：</td>
-                            <td class="border-right nub">￥7258.00</td>
-                            <td class="border-right nub">￥789.00</td>
-                            <td class="nub">￥0.00</td>
+                            <td width="110" ng-repeat="y in item.sumList" ng-class=
+                            "{'border-right':($index + 1 != item.sumList.length)}">
+                                <p class="nub">¥ <span ng-bind="y.payAmount"></span></p>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -97,88 +103,31 @@
                             <th width="12%">收费</th>
                         </thead>
                     </table>
-                    <table class="sale-stat-list mt10">
+                    <table class="sale-stat-list mt10" ng-cloak ng-repeat="item in orderDetailsList">
                         <thead>
-                            <th colspan="2">单据号：<span class="receiptsNub">22016992939390190087661</span></th>
-                            <th colspan="2">单据时间： 2016-12-15 22:20:51</th>
-                            <th colspan="2">销售：陈小二</th>
+                            <th colspan="2">单据号：<span class="receiptsNub" ng-bind="item.retailOrderId"></span></th>
+                            <th colspan="2">单据时间： <span ng-bind="item.createDt"></span></th>
+                            <th colspan="2">销售：<span ng-bind="item.staffName"></span></th>
                             <th colspan="2"></th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td width="12%">1151259176164</td>
-                                <td width="12%">华为-1215</td>
-                                <td width="12%">123</td>
-                                <td width="12%">-1</td>
-                                <td width="12%">零售退货</td>
-                                <td width="12%"></td>
-                                <td width="16%"><span class="nub">¥ -3000.00（退）</span></td>
-                                <td width="12%">¥ -3000.00（退）</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="sale-stat-list mt10">
-                        <thead>
-                            <th colspan="2">单据号：<span class="receiptsNub">22016992939390190087661</span></th>
-                            <th colspan="2">单据时间： 2016-12-15 22:20:51</th>
-                            <th colspan="2">销售：陈小二</th>
-                            <th colspan="2"></th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td width="12%">1151259176164</td>
-                                <td width="12%">华为-1215</td>
-                                <td width="12%">123</td>
-                                <td width="12%">-1</td>
-                                <td rowspan="2" width="12%">零售退货</td>
-                                <td rowspan="2" width="12%"></td>
-                                <td rowspan="2" width="16%"><span class="nub">¥ -3000.00</span></td>
-                                <td rowspan="2" width="12%">¥ -3000.00</td>
-                            </tr>
-                            <tr>
-                                <td width="12%">1151259176164</td>
-                                <td width="12%">华为-1215</td>
-                                <td width="12%">123</td>
-                                <td width="12%">-1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="sale-stat-list mt10">
-                        <thead>
-                            <th colspan="2">单据号：<span class="receiptsNub">22016992939390190087661</span></th>
-                            <th colspan="2">单据时间： 2016-12-15 22:20:51</th>
-                            <th colspan="2">销售：陈小二</th>
-                            <th colspan="2"></th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td width="12%">1151259176164</td>
-                                <td width="12%">华为-1215</td>
-                                <td width="12%">123</td>
-                                <td width="12%">-1</td>
-                                <td rowspan="3" width="12%">零售退货</td>
-                                <td rowspan="3" width="12%"></td>
-                                <td rowspan="3" width="16%"><span class="nub">¥ -3000.00</span></td>
-                                <td rowspan="3" width="12%">¥ -3000.00</td>
-                            </tr>
-                            <tr>
-                                <td width="12%">1151259176164</td>
-                                <td width="12%">华为-1215</td>
-                                <td width="12%">123</td>
-                                <td width="12%">-1</td>
-                            </tr>
-                            <tr>
-                                <td width="12%">1151259176164</td>
-                                <td width="12%">华为-1215</td>
-                                <td width="12%">123</td>
-                                <td width="12%">-1</td>
+                            <tr ng-repeat="value in item.itemList">
+                                <td width="12%" ng-bind="value.offerCode"></td>
+                                <td width="12%" ng-bind="value.offerName"></td>
+                                <td width="12%" ng-bind="value.offerModelName"></td>
+                                <td width="12%" ng-bind="value.offerQty"></td>
+
+                                <td width="12%" ng-if="$index === 0" rowspan="{{item.itemList.length}}" ng-bind="item.orderType | orderType"></td>
+                                <td width="12%" ng-if="$index === 0" rowspan="{{item.itemList.length}}"  ng-bind="item.custName"></td>
+                                <td width="16%" ng-if="$index === 0" rowspan="{{item.itemList.length}}" ><span class="nub">¥ </span><span class="nub" ng-bind="item.totalAmount"></span></td>
+                                <td width="12%" ng-if="$index === 0" rowspan="{{item.itemList.length}}" ><span>¥ </span> <span ng-bind="value.amount"></span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div ng-controller="paginationCtrl" class="text-center page">
                     <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    <div class="page-num">共<span class="number" ng-bind="totalNum"></span>条记录，当前显示第<span class="number" ng-bind="currentPage"></span>页</div>
                 </div>
             </div>
         </div>
@@ -194,6 +143,8 @@
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/mock.js"></script>
+    <script src="../../resources/js/moment.js"></script>
     <script src="salesStatisticsInquiry.js"></script>
 </body>
 
