@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>会员积分调整</title>
+    <title>会员积分管理</title>
     <link rel="stylesheet" href="../../resources/css/sweetalert.css">
     <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <link rel="stylesheet" href="../../resources/css/reset.css">
@@ -13,18 +13,18 @@
 
 <body ng-app="staffModule">
     <!-- DOM结构开始 -->
-    <div class="history top-line wavy-line" ng-controller="addAdjustInModalCtrl">
+    <div class="history top-line wavy-line" ng-controller="queryTypeFormCtrl">
         <!-- 条件查询 -->
-        <div class="condition-query fn-clear" ng-controller="conditionQuery">
+        <div class="condition-query fn-clear">
             <p class="condition-query-title fn-left">搜
                 <br/>索</p>
             <div class="condition-query-box fn-right">
-                <form name="conditionQueryForm" class="form-inline" role="form">
+                <form name="conditionQueryForm" ng-submit="queryTypeFormSubmit()" class="form-inline" role="form">
                     <div class="row mb10">
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员姓名：</label>
-                                <input type="text" class="form-control" placeholder="请输入会员姓名">
+                                <input type="text" class="form-control" placeholder="请输入会员姓名" ng-model="conditionQueryForm.leaguerName">
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -33,7 +33,7 @@
                                 <div class="select-box">
                                     <select class="form-control" id="">
                                         <option value="">全部</option>
-                                        <!-- <option ng-repeat="item in retailPriceType" value="{{item.retailShopId}}">{{item.retailShopName}}</option> -->
+                                        <option ng-repeat="item in offerTypeList" value="{{item.certificateType}}">{{item.certificateTypeName}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">证件号码：</label>
-                                <input type="text" class="form-control" placeholder="请输入证件号码">
+                                <input type="text" class="form-control" placeholder="请输入证件号码" ng-model="conditionQueryForm.certificateNum">
                             </div>
                         </div>                       
                     </div>
@@ -49,13 +49,13 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员卡号：</label>
-                                <input type="text" class="form-control" placeholder="请输入会员卡号">
+                                <input type="text" class="form-control" placeholder="请输入会员卡号" ng-model="conditionQueryForm.leaguerCardId">
                             </div>
                         </div>   
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">手机号码：</label>
-                                <input type="text" class="form-control" placeholder="请输入手机号码">
+                                <input type="text" class="form-control" placeholder="请输入手机号码" ng-model="conditionQueryForm.leaguerMobile">
                             </div>
                         </div>  
                         <div class="col-xs-4 text-right">
@@ -67,221 +67,186 @@
                 </form>
             </div>
         </div>
+        
         <!-- 结果列表 -->
-        <div class="result-list" ng-controller="resultCtrl">
-            <div class="result-head">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <div class="model-header">
-                            <img class="model-img" src="../../resources/images/icon-list.png">
-                            <p class="model-title">会员信息列表</p>
+        <div ng-controller="addAdjustInModalCtrl as $ctrl">
+            <div class="result-list" ng-controller="resultCtrl">
+                <div class="result-head">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="model-header">
+                                <img class="model-img" src="../../resources/images/icon-list.png">
+                                <p class="model-title">会员信息列表</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="result-table">
                 <div class="result-table">
-                    <table class="table table-striped table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="7%">会员姓名</th>
-                                <th width="8%">会员卡号</th>
-                                <th width="8%">手机号码</th>
-                                <th width="7%">证件类型</th>
-                                <th width="12%">证件号码</th>
-                                <th width="7%">会员等级</th>
-                                <th width="5%">状态</th>
-                                <th width="12%">会员标签</th>
-                                <th width="8%">创建时间</th>
-                                <th width="13%">会员积分</th>
-                                <th width="13%">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>                                                         
-                                <td>
-                                    <p>莫伊</p>
-                                </td>
-                                <td>
-                                    <p>52344</p>
-                                </td>
-                                <td>
-                                    <p>18012533478</p>
-                                </td>
-                                <td>
-                                    <p>身份证</p>
-                                </td>
-                                <td>
-                                    <p>34534524542523424X</p>
-                                </td>
-                                <td>
-                                    <p>黄金会员</p>
-                                </td>
-                                <td>
-                                    <p>可用</p>
-                                </td>
-                                <td>
-                                    <p>体育,音乐</p>
-                                </td>
-                                <td>
-                                    <p>2016-01-12</p>
-                                </td>
-                                <td>
-                                    <p>[<span>1007</span>] <a href="" class="historyDetail">历史明细</a></p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-xs btn-edit" ng-click="">积分兑换</button>
-                                    <button class="btn btn-xs btn-edit" ng-click="scoreAdjust()">积分调整</button>     
-                                </td>
-                            </tr>
-                            <tr>                                                         
-                                <td>
-                                    <p>王小阳</p>
-                                </td>
-                                <td>
-                                    <p>52344</p>
-                                </td>
-                                <td>
-                                    <p>18012533478</p>
-                                </td>
-                                <td>
-                                    <p>身份证</p>
-                                </td>
-                                <td>
-                                    <p>34534524542523424X</p>
-                                </td>
-                                <td>
-                                    <p>黄金会员</p>
-                                </td>
-                                <td>
-                                    <p>可用</p>
-                                </td>
-                                <td>
-                                    <p>体育,音乐</p>
-                                </td>
-                                <td>
-                                    <p>2016-01-12</p>
-                                </td>
-                                <td>
-                                    <p>[<span>90987</span>] <a href="" class="historyDetail">历史明细</a></p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-xs btn-edit" ng-click="">积分兑换</button>
-                                    <button class="btn btn-xs btn-edit" ng-click="scoreAdjust()">积分调整</button>     
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
-                        没有数据
-                    </p>
-                </div>
-                <div ng-controller="paginationCtrl" class="text-center page">
-                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    <div class="result-table">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="7%">会员姓名</th>
+                                    <th width="9%">会员卡号</th>
+                                    <th width="8%">手机号码</th>
+                                    <th width="7%">证件类型</th>
+                                    <th width="12%">证件号码</th>
+                                    <th width="7%">会员等级</th>
+                                    <th width="5%">状态</th>
+                                    <th width="12%">会员标签</th>
+                                    <th width="10%">创建时间</th>
+                                    <th width="10%">会员积分</th>
+                                    <th width="13%">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-cloak>
+                                <tr ng-repeat="item in queryTypeResultList">         
+                                    <td>
+                                        <p ng-bind="item.leaguerName"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.leaguerId" class="overflow-handle" title="{{item.leaguerId}}"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.leaguerMobile"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.certificateType"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.certificateNum"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.levelName"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.statusCd | statusCdFilter"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.leaguerLabelsName" class="overflow-handle" title="{{item.leaguerLabelsName}}"></p>
+                                    </td>
+                                    <td>
+                                        <p ng-bind="item.createDt" class="overflow-handle" title="{{item.createDt}}"></p>
+                                    </td>
+                                    <td>
+                                        <p>[<span ng-bind="item.account.accountAmount"></span>] <a class="historyDetail" href="javascript:void(0)" ng-click="detailInfo($index)">历史明细</a></p>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-edit" ng-click="scoreExchange($index)">积分兑换</button>
+                                        <button class="btn btn-xs btn-edit" ng-click="scoreAdjust($index)">积分调整</button>     
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
+                            没有数据
+                        </p>
+                    </div>
+                    <div ng-controller="paginationCtrl" class="text-center page">
+                        <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 积分调整 -->
-        <script type="text/ng-template" id="detailAccountsModal.html">
-            <div class="modal-header">
-                <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
-                <h3 class="modal-title" id="serial-number-title"><img class="icon" src="../../resources/images/icon-list1.png">积分调整</h3>
-            </div>
-            <div class="history-detail-infomation">
-                <div class="model-header">
-                    <p class="model-detail-title">积分调整相关信息：</p>
+            <!-- 积分调整 -->
+            <script type="text/ng-template" id="detailAccountsModal.html">
+                <div class="modal-header">
+                    <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
+                    <h3 class="modal-title" id="serial-number-title"><img class="icon" src="../../resources/images/icon-list1.png">积分调整</h3>
                 </div>
-                <div class="info-detail-form">
-                    <form name="infomationForm" class="form-inline" role="form">
+                <div class="history-detail-infomation">
+                    <div class="model-header">
+                        <p class="model-detail-title">积分调整相关信息：</p>
+                    </div>
+                    <div class="info-detail-form">   
                         <div class="row dashed-line">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>会员姓名：</span>莫伊</p>
+                                    <p class="detail-msg on"><span>会员姓名：</span>{{scoreAdjustType.leaguerName}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>会员卡号：</span>100000000142</p>
+                                    <p class="detail-msg on"><span>会员卡号：</span>{{scoreAdjustType.leaguerId}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>调整手机号：</span>18912345675</p>
+                                    <p class="detail-msg on"><span>调整手机号：</span>{{scoreAdjustType.leaguerMobile}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="row d-line">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>会员等级：</span>黄金会员</p>
+                                    <p class="detail-msg on"><span>会员等级：</span>{{scoreAdjustType.levelName}}</p>
                                 </div>
                             </div>                          
-                        </div>
-                    </form>
+                        </div>   
+                    </div>
                 </div>
-            </div>
-            <div class="serial-number-list">
-                <div class="info-detail-form" ng-controller="resultListCtrl">
-                    <form name="infomationForm" class="form-inline" role="form">
-                        <div class="row d-line">
-                            <div class="col-xs-4">
-                                <div class="form-group">
-                                    <p class="detail-msg"><span>现有积分：</span>7007</p>
+                <div class="serial-number-list" ng-controller="resultListCtrl">
+                    <div class="info-detail-form">
+                        <form name="infomationForm" class="form-inline" role="form">
+                            <div class="row d-line">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <p class="detail-msg"><span>现有积分：</span>{{scoreAdjustType.account.accountAmount}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="form-group">
-                                    <div class="detail-msg top">
-                                        <span class="vertl">调整积分：</span>
-                                        <div class="adjust"> 
-                                            <button class="plus iconfont" ng-click="count = count - 1">&#xe63b;</button>
-                                            <input type="number" class="num" ng-model="count">
-                                            <button class="add iconfont" ng-click="count = count + 1">&#xe60e;</button>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <div class="detail-msg top">
+                                            <span class="vertl">调整积分：</span>
+                                            <div class="adjust"> 
+                                                <button class="plus iconfont" ng-click="infomationForm.pointChangeValue = infomationForm.pointChangeValue - 1">&#xe63b;</button>
+                                                <input type="number" class="num" ng-model="infomationForm.pointChangeValue">
+                                                <button class="add iconfont" ng-click="infomationForm.pointChangeValue = infomationForm.pointChangeValue + 1">&#xe60e;</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="form-group">
-                                    <p class="detail-msg"><span>调整后积分：</span><b class="purple-color">9007</b></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row d-line">
-                            <div class="col-xs-4">
-                                <div class="form-group">
-                                    <p class="detail-msg"><span>调整日期：</span>2017-01-06</p>
-                                </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="form-group">
-                                    <p class="detail-msg"><span>操作人员：</span>王小二</p>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <div class="remark-msg"><span>调整说明：</span>
-                                        <textarea class="txtarea"></textarea>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <p class="detail-msg"><span>调整后积分：</span><b class="purple-color">{{acAccountAmount}}</b></p>
                                     </div>
                                 </div>
-                            </div>                          
-                        </div>
-                    </form>
+                            </div>
+                            <div class="row d-line">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <p class="detail-msg"><span>调整日期：</span><span id="current-time"></span></p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <p class="detail-msg"><span>操作人员：</span>{{}}</p>
+                                    </div>
+                                </div>                            
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <div class="remark-msg"><span>调整说明：</span>
+                                            <textarea class="txtarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>                          
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-submit" type="button" ng-click="$ctrl.ok()">确定</button>
-                <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">关闭</button>
-            </div>
-            <div class="success_popup" ng-show="$ctrl.isVisible">
-                <button type="button" class="close iconfont popclose" ng-click="$ctrl.sure()">&#xe611;</button>
-                <img src="../../resources/images/success.png">
-                <p class="wrds">积分调整成功</p>
-            </div> 
-        </script>
+                <div class="modal-footer">
+                    <button class="btn btn-submit" type="button" ng-click="$ctrl.ok()">确定</button>
+                    <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">关闭</button>
+                </div>
+                <!-- <div class="success_popup" ng-show="isVisible">
+                    <button type="button" class="close iconfont popclose" ng-click="$ctrl.sure()">&#xe611;</button>
+                    <img src="../../resources/images/success.png">
+                    <p class="wrds">积分调整成功</p>
+                </div>  -->
+            </script>
+        </div>
     </div>
     <script src="../../resources/js/angular.min.js"></script>
     <script src="../../resources/js/angular-touch.min.js"></script>
@@ -294,6 +259,7 @@
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/mock.js"></script>
     <script src="membershiPointManage.js"></script>
 </body>
 

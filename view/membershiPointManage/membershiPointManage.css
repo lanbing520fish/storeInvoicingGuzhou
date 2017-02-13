@@ -254,6 +254,9 @@
     width: 100%;
     text-align: left;
 }
+.form-group .detail-msg.on{
+    top:7px;
+}
 .form-group .detail-msg span{
     color: #999;
 }
@@ -336,6 +339,7 @@
     width:700px !important;
     min-height:70px;
     border-color: #ddd;
+    padding:10px;
 }
 .info-detail-form .form-group{
     padding-left:0;
@@ -376,4 +380,7 @@ input::-webkit-inner-spin-button{
 }
 input[type="number"]{-moz-appearance:textfield;}
 
+#current-time{
+    color:#333;
+}
 
