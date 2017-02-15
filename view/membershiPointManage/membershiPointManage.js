@@ -156,7 +156,6 @@ angular
         $scope.currentPage = 1; // 当前页
         $scope.rowNumPerPage = 10; // 每页显示行数
         $scope.totalNum = 0; // 总条数
-        $scope.checkedPrivilegeType = []; // 已经选中的卡商品列表
 
         $scope.queryTypeForm = {
             // offerName: '',
@@ -211,11 +210,13 @@ angular
         };
         // 积分兑换
         $scope.scoreExchange = function(index) {
-            // parent.angular.element(parent.$('#tabs')).scope().addTab('积分兑换', '/storeInvoicingGuzhou/view/membPointsExchange/membPointsExchange.html', 'membPointsExchange');      
+            // $rootScope.scoreAdjustType = $rootScope.queryTypeResultList[index];
+            // parent.angular.element(parent.$('#tabs')).scope().addTab('积分兑换', '/storeInvoicingGuzhou/view/membPointsExchange/membPointsExchange.html', 'scoreAdjustType', JSON.stringify($rootScope.scoreAdjustType)); 
         };
         // 历史详情
         $scope.detailInfo = function(index) {
-            // parent.angular.element(parent.$('#tabs')).scope().addTab('历史详情', '/storeInvoicingGuzhou/view/detailMembPointHistory/detailMembPointHistory.html', 'detailMembPointHistory');      
+            // $rootScope.scoreAdjustType = $rootScope.queryTypeResultList[index];
+            // parent.angular.element(parent.$('#tabs')).scope().addTab('历史详情', '/storeInvoicingGuzhou/view/detailMembPointHistory/detailMembPointHistory.html', 'scoreAdjustType', JSON.stringify($rootScope.scoreAdjustType));      
         };
 
     }])
