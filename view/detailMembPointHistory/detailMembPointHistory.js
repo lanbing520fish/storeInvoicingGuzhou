@@ -1,7 +1,10 @@
 angular
     .module('staffModule', ['ui.bootstrap'])
-    .run(['$rootScope', function($rootScope){
-        $rootScope.pointsAccountId = window.frameElement && window.frameElement.id || '';
+    .run(['$rootScope', function($rootScope) {
+        var id = window.frameElement && window.frameElement.id || '',
+            obj = parent.$('#' + id).attr('data');
+        $rootScope.pointsAccount = obj ? JSON.parse(obj) : {};
+        $rootScope.pointsAccountId = $rootScope.pointsAccount && $rootScope.pointsAccount.id ? $rootScope.pointsAccount.id : '';
     }])
     .factory('httpMethod', ['$http', '$q', function($http, $q) {
         var httpConfig = {
@@ -73,7 +76,7 @@ angular
 
             // 积分详情模拟数据
             Mock.mock(httpConfig.siteUrl + '/point/q/queryPointCitemRelaById', {
-                'rsphead':'s',
+                'rsphead': 's',
                 'success': true, //是否成功
                 'code': null,
                 'msg': '',
@@ -81,12 +84,12 @@ angular
                     'relaType|1': ['1', '2', '3'],
                     'remarks': '@word',
                     'offerPointConfig': {
-                        'pointVaule|10-100':10,
-                        'createDt':'@date',
+                        'pointVaule|10-100': 10,
+                        'createDt': '@date',
                         'configId': '@id',
-                        'configDetail':'@cword(6)',
-                        'offer':{
-                            'offerName':'@cword(6)'
+                        'configDetail': '@cword(6)',
+                        'offer': {
+                            'offerName': '@cword(6)'
                         }
                     }
                 },
