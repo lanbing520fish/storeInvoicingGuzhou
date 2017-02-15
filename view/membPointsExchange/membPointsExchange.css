@@ -33,7 +33,7 @@
     border-radius: 22px;
 }
 .detail-msg{
-    width:154px;
+    width:185px;
     line-height: 57px;
 }
 .detail-msg span{
@@ -512,7 +512,6 @@
 .form-choose {
     position: relative;
     width: 100% !important;
-    margin-top: 4px;
 }
 
 .form-choose label {
@@ -594,7 +593,7 @@
 }
 .btn-keyword {
     position: absolute;
-    top: 0;
+    top: 4px;
     right: 0;
     width: 80px;
     height: 25px;
