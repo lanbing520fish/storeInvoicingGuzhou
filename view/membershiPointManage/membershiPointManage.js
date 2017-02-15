@@ -1,6 +1,6 @@
 angular
     .module('staffModule', ['ui.bootstrap'])
-    .run(['$rootScope', function($rootScope) {
+    .run(['$rootScope', '$filter', function($rootScope, $filter) {
         $rootScope.offerTypeList = [{
             certificateType: 1,
             certificateTypeName: '身份证'
@@ -11,6 +11,7 @@ angular
             certificateType: 3,
             certificateTypeName: '驾照'
         }]; // 卡类型列表
+        $rootScope.dateNow = $filter('date')(new Date(), 'yyyy-MM-dd');
     }])
     .factory('httpMethod', ['$http', '$q', function($http, $q) {
         var httpMethod = {},
@@ -158,10 +159,7 @@ angular
         $scope.totalNum = 0; // 总条数
 
         $scope.queryTypeForm = {
-            // offerName: '',
-            // offerType: '',
-            // offerValue: '',
-            // offerOperatorId: ''
+            
         };
         $scope.queryTypeFormSubmit = function(currentPage) {
             !currentPage && $scope.$broadcast('pageChange');
@@ -220,6 +218,7 @@ angular
         };
 
     }])
+    //积分调整
     .controller('resultListCtrl', ['$scope', '$rootScope', 'httpMethod', '$log', function($scope, $rootScope, httpMethod, $log) {
         $scope.$on('submitQueryTypeModal', function(d, data) {
             $scope.scoreAdjustTypeFormSubmit(data);
@@ -237,7 +236,7 @@ angular
                 pointChangeValue: _.get($scope, 'infomationForm.pointChangeValue'), //积分变更值
                 bcAccountAmount: _.get($scope, 'infomationForm.bcAccountAmount'), //积分变更前账户值
                 acAccountAmount: _.get($rootScope, 'acAccountAmount'), //积分变更后账户值
-                pointChangeDt: _.get($scope, 'infomationForm.pointChangeDt') //积分变更时间
+                pointChangeDt: _.get($rootScope, 'dateNow') //积分变更时间
             };
             param.bcAccountAmount = $rootScope.scoreAdjustType.account.accountAmount;
 
@@ -253,7 +252,6 @@ angular
                         showLoaderOnConfirm: true
                     }, function() {
                         $rootScope.isRefresh = true;
-                        // $rootScope.isVisible = true;
                         if (!$rootScope.$$phase) {
                             $rootScope.$apply();
                         }
@@ -305,26 +303,6 @@ angular
         $ctrl.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
-
-        setInterval(function() {
-            var now = (new Date()).Format("yyyy-MM-dd");
-            $('#current-time').text(now);
-        }, 1000);
-        Date.prototype.Format = function(fmt) { //author: meizz 
-            var o = {
-                "M+": this.getMonth() + 1, //月份 
-                "d+": this.getDate(), //日 
-                "h+": this.getHours(), //小时 
-                "m+": this.getMinutes(), //分 
-                "s+": this.getSeconds(), //秒 
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-                "S": this.getMilliseconds() //毫秒 
-            };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        }
     })
     // 分页控制器
     .controller('paginationCtrl', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {

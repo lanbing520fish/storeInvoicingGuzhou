@@ -1,35 +1,23 @@
 angular
     .module('staffModule', ['ui.bootstrap'])
-    .run(['$rootScope', function($rootScope) {
+    .run(['$rootScope', '$filter', function($rootScope, $filter) {
         var id = window.frameElement && window.frameElement.id || '',
             obj = parent.$('#' + id).attr('data');
         $rootScope.scoreAdjustType = obj ? JSON.parse(obj) : {};
+
+        $rootScope.scoreAdjustType = {
+            leaguerName: '莫伊',
+            leaguerId: '11134444',
+            levelName: '黄金会员',
+            leaguerMobile: '18652020206',
+            accountAmount:'1007'
+        };
+        $rootScope.exchangeGoodsForm = {};
+        $rootScope.dateNow = $filter('date')(new Date(), 'yyyy-MM-dd');
     }])
     .factory('httpMethod', ['$http', '$q', function($http, $q) {
         var httpMethod = {},
             isMock = true;
-        // 查询会员信息列表
-        httpMethod.queryLeaguer = function(param) {
-            var defer = $q.defer();
-            $http({
-                url: 'http://192.168.74.17:8088/leaguer/q/queryLeaguer',
-                method: 'POST',
-                cache: false,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data: 'param=' + JSON.stringify(param)
-            }).success(function(data, header, config, status) {
-                if (status !== 200) {
-                    // 跳转403页面
-                }
-                defer.resolve(data);
-            }).error(function(data, status, headers, config) {
-                defer.reject(data);
-            });
-            return defer.promise;
-        };
-
         // 查询兑换商品
         httpMethod.qryOfferConfigs = function(param) {
             var defer = $q.defer();
@@ -94,25 +82,6 @@ angular
         };
 
         if (isMock) {
-            // 查询会员信息列表
-            Mock.mock('http://192.168.74.17:8088/leaguer/q/queryLeaguer', {
-                'rsphead': 's',
-                'success': true, //是否成功
-                'code': null,
-                'msg': null, //失败信息
-                'data': {
-                    'list|1': [{
-                        'leaguerId': '@id',//会员卡号
-                        'leaguerMobile|+1': ['13900213221', '18922125654', '15900389987'],//手机号
-                        'leaguerName': "@cword(4)",//会员姓名
-                        'levelName|+1': ['黄金会员', '铂金会员', '普通会员'],//会员等级
-                        'account': {
-                            'accountAmount': '10',//积分 
-                        }
-                    }]
-                },
-                'errors': null
-            });
             // 查询兑换商品
             Mock.mock('http://192.168.74.17:8088/point/q/qryOfferConfigs', {
                 'rsphead': 's',
@@ -176,22 +145,6 @@ angular
         return httpMethod;
     }])
 
-    // 会员信息
-    .controller('detailOperateFormCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', function($scope, $rootScope, $log, httpMethod) {
-        var param = {
-            certificateNum: _.get($rootScope, 'scoreAdjustType.certificateNum'),
-            certificateType: _.get($rootScope, 'scoreAdjustType.certificateType'),
-            leaguerCardId: _.get($rootScope, 'scoreAdjustType.leaguerCardId') 
-        };
-        // 调用会员信息列表查询
-        httpMethod.queryLeaguer(param).then(function(rsp) {
-            $scope.detailOperateForm = rsp.data.list;
-            $log.log('调用会员信息列表查询接口成功.');
-        }, function() {
-            $log.log('调用会员信息列表查询接口成功.');
-        });
-    }])
-
     //积分兑换商品展示
     .controller('exchangeQuery', ['$scope', '$rootScope', '$log', 'httpMethod', function($scope, $rootScope, $log, httpMethod) {
         var param = {
@@ -216,7 +169,7 @@ angular
 
         //商品兑换
         $scope.exchangePoints = function(index) {
-            $rootScope.scoreAdjustType = $rootScope.goodsCategoryList[index];
+            $rootScope.exchangeGoodsForm = $scope.goodsSmallList[index];
             $scope.$emit('openDetailAccountsModal');
         };  
     }])
@@ -234,8 +187,9 @@ angular
         $scope.isHidden = true; // 更多查询条件列表是否隐藏
         $scope.isFoldBrand = true; // 品牌列表是否折叠
         $scope.isFoldModel = true; // 型号列表是否折叠
+        $scope.isVisa = true; 
         $scope.isVisb = true; 
-
+        $rootScope.useful = false; // 总条数
         // 切换展示
         $scope.toggle = function(name) {
             switch (name) {
@@ -250,9 +204,25 @@ angular
                     break;
             }
         }
+        //选中查询条件
+        $scope.checked = function(item) {
+            $scope.categoryType = item;
+            $scope.isVisa = false;
+        };
+        $scope.checkedFor = function(startPoint,endPoint) {
+            $scope.startPoint = startPoint;
+            $scope.endPoint = endPoint;
+            $scope.isVisb = false;
+        };
         //删除查询条件
         $scope.btn_remove = function(index) {
-            $scope.files.splice(index,1)
+            $scope.categoryName = '';
+            $scope.isVisa = true;
+        };
+        $scope.btn_dele = function(index) {
+            $scope.startPoint = '';
+            $scope.endPoint = '';
+            $scope.isVisb = true;
         };
         // 查询结果分页信息
         $scope.requirePaging = true; // 是否需要分页
@@ -263,11 +233,11 @@ angular
         $scope.goodsExchangeQuery = function(currentPage) {
             !currentPage && $scope.$broadcast('pageChange');
             var param = {
-                endPoint: _.get($scope, 'infomationForm.endPoint'), //积分下限 
+                endPoint: _.get($scope, 'endPoint'), //积分下限 
                 offerName: _.get($rootScope, 'infomationForm.offerName'), //商品名称
-                startPoint: _.get($scope, 'infomationForm.startPoint'), //积分上限
-                statusCd: _.get($scope, 'infomationForm.statusCd'), //商品状态
-                categoryCd: _.get($scope, 'goodsCategoryList.categoryCd'), //商品类别
+                startPoint: _.get($scope, 'startPoint'), //积分上限
+                statusCd: '', //商品状态
+                categoryCd: _.get($scope, 'categoryType.categoryCd'), //商品类别
                 curPage: currentPage || $scope.currentPage, // 当前页
                 pageSize: $scope.rowNumPerPage // 每页展示行数
             };
@@ -287,20 +257,65 @@ angular
 
         //商品兑换
         $scope.exchangePoints = function(index) {
-            $rootScope.scoreAdjustType = $rootScope.goodsCategoryList[index];
+            $rootScope.exchangeGoodsForm = $scope.goodsList[index];
             $scope.$emit('openDetailAccountsModal');
         };  
     }])
-
+    //积分兑换
+    .controller('resultListCtrl', ['$scope', '$rootScope', 'httpMethod', '$log', function($scope, $rootScope, httpMethod, $log) {
+        $scope.$on('submitQueryTypeModal', function(d, data) {
+            $scope.scoreExchangeTypeFormSubmit(data);
+        });
+        $rootScope.$watch('exchangeGoodsForm.pointVaule', function(current, old, scope) {
+            if(_.parseInt(scope.scoreAdjustType.accountAmount) > _.parseInt(scope.exchangeGoodsForm.pointVaule)){
+                scope.lastPoint = (_.parseInt(scope.scoreAdjustType.accountAmount) || 0) - _.parseInt(scope.exchangeGoodsForm.pointVaule);
+                scope.useful = false;
+            }else{
+                scope.lastPoint = 0;
+                scope.useful = true;
+            }
+       
+        });
+        $scope.scoreExchangeTypeFormSubmit = function(data) {
+            var param = {
+                exchangeItem: _.get($rootScope, 'exchangeGoodsForm'),
+                leaguerId: _.get($rootScope, 'scoreAdjustType.leaguerId'),
+                pointsAccountId: _.get($rootScope, 'scoreAdjustType.pointsAccountId'),
+                remark:_.get($rootScope, 'exchangeGoodsForm.remark')
+            };
+            // 积分兑换
+            httpMethod.excahngeOffer(param).then(function(rsp) {
+                $log.log('调用积分兑换接口成功.');
+                if (rsp.success) {
+                    swal({
+                        title: '操作成功',
+                        text: rsp.msg || '积分兑换成功!',
+                        type: 'success',
+                        confirmButtonText: '确定',
+                        showLoaderOnConfirm: true
+                    }, function() {
+                        $rootScope.isRefresh = true;
+                        if (!$rootScope.$$phase) {
+                            $rootScope.$apply();
+                        }
+                    });
+                } else {
+                    swal('OMG', rsp.msg || '积分兑换失败!', 'error');
+                }
+            }, function() {
+                swal('OMG', '调用积分兑换接口失败!', 'error');
+            });    
+        };
+    }])
     // 弹出框
     .controller('addAdjustInModalCtrl', function($scope, $rootScope, $uibModal) {
         var $ctrl = this,
             modalInstance;
         $ctrl.animationsEnabled = true;
-        // // 积分兑换
-        // $scope.$on('openDetailAccountsModal', function(d, data) {
-        //     $ctrl.openDetailAccountsModal(data);
-        // });
+        // 积分兑换
+        $scope.$on('openDetailAccountsModal', function(d, data) {
+            $ctrl.openDetailAccountsModal(data);
+        });
         $ctrl.openDetailAccountsModal = function(data) {
             modalInstance = $uibModal.open({
                 animation: $ctrl.animationsEnabled,
@@ -326,14 +341,11 @@ angular
         var $ctrl = this;
 
         $ctrl.ok = function() {
-            $ctrl.isVisible = true;
+            $scope.$broadcast('submitQueryTypeModal', items);
+            $uibModalInstance.close();
         };
         $ctrl.cancel = function() {
             $uibModalInstance.dismiss('cancel');
-        };
-        $ctrl.sure = function() {
-            // $ctrl.isVisible = false;
-            $uibModalInstance.close();
         };
     })
     // 分页控制器
