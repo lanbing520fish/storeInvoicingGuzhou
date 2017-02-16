@@ -255,7 +255,7 @@
     width: 100%;
     text-align: left;
 }
-.form-group .detail-msg span{
+.form-group .detail-msg .color-gray{
     color: #999;
     display: inline-block;
     width: 90px;
