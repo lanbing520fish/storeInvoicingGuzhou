@@ -13,9 +13,9 @@
 
 <body ng-app="staffModule">
     <!-- DOM结构开始 -->
-    <div class="history top-line wavy-line" ng-controller="addAdjustInModalCtrl">
+    <div class="history top-line wavy-line" ng-controller="detailMembPointHistoryCtrl">
         <!-- 条件查询 -->
-        <div class="condition-query fn-clear" ng-controller="conditionQuery">
+        <div class="condition-query fn-clear">
             <p class="condition-query-title fn-left">搜
                 <br/>索</p>
             <div class="condition-query-box fn-right">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group btn-search">
-                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                                <button type="submit" ng-click="queryFormSubmit()" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
                             </div>
                         </div>      
                     </div>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <!-- 结果列表 -->
-        <div class="result-list" ng-controller="resultCtrl">
+        <div class="result-list">
             <div class="result-head">
                 <div class="row">
                     <div class="col-xs-4">
@@ -76,67 +76,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>                                   
+                            <tr ng-repeat="item in pointListData">
                                 <td>
-                                    <p>莫伊</p>
+                                    <p ng-bind="item.leaguerName"></p>
                                 </td>
                                 <td>
-                                    <p>18075643466</p>
+                                    <p ng-bind="item.leaguerMobile"></p>
                                 </td>
                                 <td>
-                                    <p>7008</p>
+                                    <p ng-bind="item.bcAccountAmount"></p>
                                 </td>
                                 <td>
-                                    <p>9007</p>
+                                    <p ng-bind="item.acAccountAmount"></p>
                                 </td>
                                 <td>
-                                    <p>+2000</p>
+                                    <p ng-bind="item.pointChangeVaule | pointChangeTypeCdFilter:item.pointChangeTypeCd"></p>
                                 </td>
                                 <td>
-                                    <p>积分调整</p>
+                                    <p ng-bind="item.relaType | relaTypeFilter"></p>
                                 </td>
                                 <td>
-                                    <p>2016-07-25</p>
-                                </td>  
-                                <td>
-                                    <button class="btn btn-xs btn-edit" ng-click="detailPoints()"><i class="iconfont">&#xe60b;</i> 详情</button>    
-                                </td>
-                            </tr>
-                            <tr>                                   
-                                <td>
-                                    <p>莫伊</p>
+                                    <p ng-bind="item.pointChangeDt"></p>
                                 </td>
                                 <td>
-                                    <p>18075643466</p>
-                                </td>
-                                <td>
-                                    <p>7008</p>
-                                </td>
-                                <td>
-                                    <p>9007</p>
-                                </td>
-                                <td>
-                                    <p>+2000</p>
-                                </td>
-                                <td>
-                                    <p>积分调整</p>
-                                </td>
-                                <td>
-                                    <p>2016-07-25</p>
-                                </td>  
-                                <td>
-                                    <button class="btn btn-xs btn-edit" ng-click="detailPoints()"><i class="iconfont">&#xe60b;</i> 详情</button>
+                                    <button class="btn btn-xs btn-edit" ng-click="detailPoints(item)"><i class="iconfont">&#xe60b;</i> 详情</button> 
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
+                    <p class="no-data" ng-if="pointListData && !pointListData.length">
                         没有数据
                     </p>
                 </div>
                 <div ng-controller="paginationCtrl" class="text-center page">
                     <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    <div class="page-num">共<span class="number" ng-cloak ng-bind="totalNum || 0"></span>条记录，当前显示第<span class="number" ng-cloak ng-bind="currentPage || 0"></span>页</div>
                 </div>
             </div>
         </div>
@@ -155,12 +129,12 @@
                         <div class="row dashed-line mlf24">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>会员姓名：</span>莫伊</p>
+                                    <p class="detail-msg"><span>会员姓名：</span>{{$ctrl.pointInfo.leaguerName}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>手机号码：</span>18075643466</p>
+                                    <p class="detail-msg"><span>手机号码：</span>{{$ctrl.pointInfo.leaguerMobile}}</p>
                                 </div>
                             </div> 
                         </div>
@@ -174,43 +148,43 @@
                         <div class="row d-line mlf24">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>变更类型：</span><b class="purple-color">积分兑换</b></p>
+                                    <p class="detail-msg"><span>变更类型：</span><b class="purple-color">{{$ctrl.pointInfo.relaType | relaTypeFilter}}</b></p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>变更分值：</span>-1</p>
+                                    <p class="detail-msg"><span>变更分值：</span>{{$ctrl.pointInfo.offerPointConfig.pointVaule | pointChangeTypeCdFilter:$ctrl.pointInfo.pointChangeTypeCd}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>变更时间：</span>2016-07-25</p>
+                                    <p class="detail-msg"><span>变更时间：</span>{{$ctrl.pointInfo.offerPointConfig.createDt}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="row dashed-line mlf24">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>备注：</span>--</p>
+                                    <p class="detail-msg"><span>备注：</span>{{$ctrl.pointInfo.remarks}}</p>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="model-header">
-                    <p class="model-detail-title">兑换详情：</p>
+                    <p class="model-detail-title">{{$ctrl.pointInfo.relaType | relaTypeFilter}}：</p>
                 </div>
                 <div class="info-detail-form mb100">
                     <form name="infomationForm" class="form-inline" role="form">
                         <div class="row dashed-line mlf24">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>兑换单号：</span>1000000000142</p>
+                                    <p class="detail-msg"><span>{{$ctrl.pointInfo.relaType | configIdFilter}}</span>{{$ctrl.pointInfo.offerPointConfig.configId}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-msg"><span>兑换商品名称：</span>Iphone6s  手机壳</p>
+                                    <p class="detail-msg"><span>{{$ctrl.pointInfo.relaType | configDetailTitleFilter}}</span>{{$ctrl.pointInfo.offerPointConfig.configDetail | configDetailContentFilter:$ctrl.pointInfo.relaType:$ctrl.pointInfo.offerPointConfig.offer.offerName}}</p>
                                 </div>
                             </div>                           
                         </div>
@@ -232,6 +206,8 @@
     <script src="../../resources/js/ui-bootstrap.js"></script>
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/mock.js"></script>
+    <script src="../../resources/js/moment.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="detailMembPointHistory.js"></script>
 </body>

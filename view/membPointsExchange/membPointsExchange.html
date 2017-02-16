@@ -14,7 +14,7 @@
 <body ng-app="staffModule">
     <!-- DOM结构开始 -->
     <div class="history top-line wavy-line" ng-controller="addAdjustInModalCtrl">
-        <div class="condition-query fn-clear">
+        <div class="condition-query fn-clear" ng-cloak>
             <div class="row mb10">
                 <div class="col-xs-1">
                     <div class="head-img">
@@ -22,111 +22,55 @@
                     </div>
                 </div>
                 <div class="col-xs-2">
-                    <p class="detail-msg"><span>会员姓名：</span>莫伊</p>
+                    <p class="detail-msg"><span>会员姓名：</span>{{scoreAdjustType.leaguerName}}</p>
                 </div>
                 <div class="col-xs-2">
-                    <p class="detail-msg"><span>会员卡号：</span>11134444</p>
+                    <p class="detail-msg"><span>会员卡号：</span>{{scoreAdjustType.leaguerId}}</p>
                 </div>
                 <div class="col-xs-3">
-                    <p class="detail-msg"><span>会员待级：</span>黄金会员</p>
+                    <p class="detail-msg"><span>会员等级：</span>{{scoreAdjustType.levelName}}</p>
                 </div>
                 <div class="col-xs-4">
                     <ul class="ul-info">
                         <li>
                             <div class="img-left"><img src="../../resources/images/telephone.png"></div>
                             <div class="info-right">
-                                <p class="p1"><b class="purple-color">18651020206</b></p>
+                                <p class="p1"><b class="purple-color">{{scoreAdjustType.leaguerMobile}}</b></p>
                                 <p class="p2">手机号码</p>
                             </div>
                         </li>
                         <li>
                             <div class="img-left"><img src="../../resources/images/ss.png"></div>
                             <div class="info-right">
-                                <p class="p1"><b class="purple-color">18651020206</b></p>
-                                <p class="p2">手机号码</p>
+                                <p class="p1"><b class="purple-color">{{scoreAdjustType.accountAmount}}</b></p>
+                                <p class="p2">积分</p>
                             </div>
                         </li>
                     </ul> 
                 </div>       
             </div>    
         </div>
-        <!-- 兑换商品 -->
-        <div class="exchange-goods" ng-controller="exchangeQuery">
+        <!-- 兑换商品 --> 
+        <div class="exchange-goods" ng-controller="exchangeQuery" ng-cloak>
             <ul class="fn-clear">
-                <li>
+                <li ng-repeat="item in goodsSmallList">
                     <div class="left-img">
                         <i class="icon-remmd"></i>
                         <img src="../../resources/images/img_tele.png">
                     </div>
                     <div class="right-info">
-                        <p class="p1">Iphone 6S 手机壳</p>
-                        <p class="p2">积分：<span class="green-color">1000</span></p>
-                        <p class="p2">市场价：<span>￥30.00</span></p>
-                        <p class="p2">当前库存：<span>10</span>
-                            <button class="exchange-btn" ng-click="exchangePoints()">兑换</button>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="left-img">
-                        <i class="icon-remmd"></i>
-                        <img src="../../resources/images/img_mo.png">
-                    </div> 
-                    <div class="right-info">
-                        <p class="p1">三星 手机膜</p>
-                        <p class="p2">积分：<span class="green-color">890</span></p>
-                        <p class="p2">市场价：<span>￥20.00</span></p>
-                        <p class="p2">当前库存：<span>5</span>
-                            <button class="exchange-btn">兑换</button>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="left-img">
-                        <i class="icon-remmd"></i>
-                        <img src="../../resources/images/img_erji.png">
-                    </div>
-                    <div class="right-info">
-                        <p class="p1">小米 NOTE 耳机</p>
-                        <p class="p2">积分：<span class="green-color">1000</span></p>
-                        <p class="p2">市场价：<span>￥30.00</span></p>
-                        <p class="p2">当前库存：<span>10</span>
-                            <button class="exchange-btn">兑换</button>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="left-img">
-                        <i class="icon-remmd"></i>
-                        <img src="../../resources/images/img_card.png">
-                    </div>
-                    <div class="right-info">
-                        <p class="p1">话费 10元充值卡</p>
-                        <p class="p2">积分：<span class="green-color">1200</span></p>
-                        <p class="p2">市场价：<span>￥10.00</span></p>
-                        <p class="p2">当前库存：<span>10</span>
-                            <button class="exchange-btn">兑换</button>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="left-img">
-                        <i class="icon-remmd"></i>
-                        <img src="../../resources/images/img_dianxin.png">
-                    </div>
-                    <div class="right-info">
-                        <p class="p1">电信 50M流量充值卡</p>
-                        <p class="p2">积分：<span class="green-color">5000</span></p>
-                        <p class="p2">市场价：<span>￥50.00</span></p>
-                        <p class="p2">当前库存：<span>2</span>
-                            <button class="exchange-btn">兑换</button>
+                        <p class="p1">{{item.offer.offerName}}</p>
+                        <p class="p2">积分：<span class="green-color">{{item.pointVaule}}</span></p>
+                        <p class="p2">市场价：<span>￥{{item.offer.priceRetail.retailPrice}}</span></p>
+                        <p class="p2">当前库存：<span>{{item.offer.offerQty}}</span>
+                            <button class="exchange-btn" ng-click="exchangePoints($index)">兑换</button>
                         </p>
                     </div>
                 </li>
             </ul>
         </div>
         <!-- 结果列表 -->
-        <div class="result-list" ng-controller="resultCtrl">
+        <div class="result-list" ng-controller="exchangeResultList">
             <div class="result-head">
                 <div class="row">
                     <div class="col-xs-4">
@@ -137,50 +81,53 @@
                     </div>
                 </div>
             </div>
-            <div class="result-choose">
-                <div class="row check-list">
-                    <div class="col-xs-4">
-                        <div class="form-choose">
-                            <input type="text" class="form-control reduce-width">
-                            <button type="submit" class="btn btn-sm btn-keyword"><i class="iconfont">&#xe600;</i> 查询</button>
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
-                        <a class="btn-queries" ng-click="toggle('isHidden')">更多查询条件</a>
-                    </div>
-                </div>
-                <!-- 条件列表 -->
-                <div class="queries-list" ng-show="!isHidden" ng-cloak>
-                    <p class="queries-title"><label class="wrds">所有分类 > </label><span class="checked-query">类别：数码配件<i class="iconfont">&#xe611;</i></span><span class="checked-query">积分区间：0-999<i class="iconfont">&#xe611;</i></span></p>
-                    <div class="query-line fn-clear">
-                        <span class="category-label fn-left">类别：</span>
-                        <div class="category-list fn-left" ng-class="{fold: isFoldBrand}">
-                            <span class="category-item">数码配件</span>
-                            <span class="category-item">家居日用</span>
-                            <span class="category-item">厨房用具</span> 
-                        </div>
-                    </div>
-                    <div class="query-line fn-clear">
-                        <div class="fn-clear">
-                            <span class="category-label fn-left">积分区间：</span>
-                            <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldBrand}">
-                                <span class="category-item">0-999积分</span>
-                                <span class="category-item">1000-1999积分</span>
-                                <span class="category-item">2000-2999积分</span>
-                                <span class="category-item">3000-3999积分</span>
-                                <span class="category-item">4000-4999积分</span>
-                                <span class="category-item">5000-5999积分</span>   
+            <form name="infomationForm" class="form-inline" role="form">
+                <div class="result-choose">
+                    <div class="row check-list">
+                        <div class="col-xs-4">
+                            <div class="form-choose">
+                                <input type="text" class="form-control reduce-width" ng-model="infomationForm.offerName">
+                                <button type="submit" class="btn btn-sm btn-keyword" ng-click="goodsExchangeQuery(currentPage)"><i class="iconfont">&#xe600;</i> 查询</button>
                             </div>
-                            <a href="javascript:;" ng-click="toggle('isFoldBrand')" ng-show="isFoldBrand" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
-                            <a href="javascript:;" ng-click="toggle('isFoldBrand')" ng-show="!isFoldBrand" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
                         </div>
-                        <div class="txt-choose">
-                            <div class="inpt"><input type="text"> - <input type="text"></div>
-                            <button class="sure-btn">确定</button>
+                        <div class="col-xs-3">
+                            <a class="btn-queries" ng-click="toggle('isHidden')">更多查询条件</a>
+                        </div>
+                    </div>
+                    <!-- 条件列表 -->
+                    <div class="queries-list" ng-show="!isHidden" ng-cloak>
+                        <p class="queries-title"><label class="wrds">所有分类 > </label>
+                            <span class="checked-query" ng-show="!isVisa">类别：{{categoryType.categoryName}}<i class="iconfont" ng-click="btn_remove()">&#xe611;</i></span>
+                            <span class="checked-query" ng-show="!isVisb">积分区间：{{startPoint}}-{{endPoint}}<i class="iconfont" ng-click="btn_dele()">&#xe611;</i></span>
+                        </p>
+                        <div class="query-line fn-clear">
+                            <span class="category-label fn-left">类别：</span>
+                            <div class="category-list fn-left" ng-class="{fold: isFoldBrand}">
+                                <span class="category-item" ng-repeat="item in goodsCategoryList" ng-click="checked(item)">{{item.categoryName}}</span>
+                            </div>
+                        </div>
+                        <div class="query-line fn-clear">
+                            <div class="fn-clear">
+                                <span class="category-label fn-left">积分区间：</span>
+                                <div class="category-list fn-left" ng-class="{fold: $ctrl.isFoldBrand}">
+                                    <span class="category-item" ng-click="checkedFor(0,999)">0-999积分</span>
+                                    <span class="category-item" ng-click="checkedFor(1000, 1999)">1000-1999积分</span>
+                                    <span class="category-item" ng-click="checkedFor(2000, 2999)">2000-2999积分</span>
+                                    <span class="category-item" ng-click="checkedFor(3000, 3999)">3000-3999积分</span>
+                                    <span class="category-item" ng-click="checkedFor(4000, 4999)">4000-4999积分</span>
+                                    <span class="category-item" ng-click="checkedFor(5000, 5999)">5000-5999积分</span>   
+                                </div>
+                                <a href="javascript:;" ng-click="toggle('isFoldBrand')" ng-show="isFoldBrand" class="category-more fn-right">更多 <i class="iconfont">&#xe608;</i></a>
+                                <a href="javascript:;" ng-click="toggle('isFoldBrand')" ng-show="!isFoldBrand" class="category-more fn-right">收起 <i class="iconfont">&#xe607;</i></a>
+                            </div>
+                            <div class="txt-choose">
+                                <div class="inpt"><input type="text" ng-model="startPt"> - <input type="text" ng-model="endPt"></div>
+                                <button class="sure-btn" ng-click="checkedFor(startPt, endPt)">确定</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="result-table">
                 <div class="result-table">
                     <table class="table table-striped table-hover table-bordered">
@@ -195,44 +142,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>                                   
+                            <tr ng-repeat="item in goodsList">     
                                 <td>
-                                    <p>莫伊</p>
+                                    <p ng-bind="item.offer.offerName"></p>
                                 </td>
                                 <td>
-                                    <p>18075643466</p>
+                                    <p ng-bind="item.offer.categoryName"></p>
                                 </td>
                                 <td>
-                                    <p>7008</p>
+                                    <p ng-bind="item.offer.priceRetail.retailPrice"></p>
                                 </td>
                                 <td>
-                                    <p>9007</p>
+                                    <p ng-bind="item.pointVaule"></p>
                                 </td>
                                 <td>
-                                    <p>+2000</p>
+                                    <p ng-bind="item.offer.offerQty"></p>
                                 </td>
                                 <td>
-                                    <button class="btn btn-xs btn-edit" ng-click="exchangePoints()"><i class="iconfont">&#xe636;</i> 兑换</button>    
-                                </td>
-                            </tr>
-                            <tr>                                   
-                                <td>
-                                    <p>莫伊</p>
-                                </td>
-                                <td>
-                                    <p>18075643466</p>
-                                </td>
-                                <td>
-                                    <p>7008</p>
-                                </td>
-                                <td>
-                                    <p>9007</p>
-                                </td>
-                                <td>
-                                    <p>+2000</p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-xs btn-edit" ng-click="exchangePoints()"><i class="iconfont">&#xe636;</i> 兑换</button>
+                                    <button class="btn btn-xs btn-edit" ng-click="exchangePoints($index)"><i class="iconfont">&#xe636;</i> 兑换</button>    
                                 </td>
                             </tr>
                         </tbody>
@@ -243,7 +170,7 @@
                 </div>
                 <div ng-controller="paginationCtrl" class="text-center page">
                     <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    <div class="page-num">共<span class="number" ng-bind="totalNum"></span>条记录，当前显示第<span class="number" ng-bind="currentPage"></span>页</div>
                 </div>
             </div>
         </div>
@@ -253,38 +180,38 @@
                 <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
                 <h3 class="modal-title" id="serial-number-title"><img class="icon" src="../../resources/images/icon-list1.png">积分商品兑换</h3>
             </div>
-            <div class="history-detail-infomation">
-                <div class="model-header">
-                    <p class="model-detail-title">兑换商品信息：</p>
-                </div>
-                <div class="info-detail-form">
-                    <form name="infomationForm" class="form-inline" role="form">
+            <form class="form-inline" role="form" ng-controller="resultListCtrl">
+                <div class="history-detail-infomation" ng-cloak>
+                    <div class="model-header">
+                        <p class="model-detail-title">兑换商品信息：</p>
+                    </div>
+                    <div class="info-detail-form">
                         <div class="row dashed-line">
                             <div class="col-xs-4">  
                                 <div class="form-group">
-                                    <p class="detail-info"><span>商品名称：</span><b>Iphone 6s 手机壳</b></p>
+                                    <p class="detail-info"><span>商品名称：</span><b>{{exchangeGoodsForm.offer.offerName}}</b></p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-info"><span>商品类别：</span>数码配件</p>
+                                    <p class="detail-info"><span>商品类别：</span>{{exchangeGoodsForm.offer.categoryName}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-info"><span>消耗积分：</span><b class="purple-color">1000</b></p>
+                                    <p class="detail-info"><span>消耗积分：</span><b class="purple-color">{{exchangeGoodsForm.pointVaule}}</b></p>
                                 </div>
                             </div>
                         </div>
                         <div class="row dashed-line">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-info"><span>现有积分：</span>7007</p>
+                                    <p class="detail-info"><span>现有积分：</span>{{scoreAdjustType.accountAmount}}</p>
                                 </div>
                             </div>  
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-info"><span>兑换后积分余额：</span>6007</p>
+                                    <p class="detail-info"><span>兑换后积分余额：</span>{{lastPoint}}</p>
                                 </div>
                             </div>   
                             <div class="col-xs-4">
@@ -296,21 +223,19 @@
                         <div class="row d-line">
                             <div class="col-xs-4">
                                 <div class="form-group">
-                                    <p class="detail-info"><span>兑换日期：</span>2017-01-10</p>
+                                    <p class="detail-info"><span>兑换日期：</span>{{dateNow}}</p>
                                 </div>
                             </div>                    
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="serial-number-list">
-                <div class="info-detail-form">
-                    <form name="infomationForm" class="form-inline" role="form">
+                <div class="serial-number-list" ng-cloak>
+                    <div class="info-detail-form">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <div class="remark-msg"><span>兑换说明：</span>
-                                        <textarea class="txtarea"></textarea>
+                                        <textarea class="txtarea" ng-bind="exchangeGoodsForm.remark"></textarea>
                                     </div>
                                 </div>
                             </div>                          
@@ -324,11 +249,11 @@
                                 </div>
                             </div>                          
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="modal-footer">
-                <button class="btn btn-submit" type="button" ng-click="$ctrl.ok()">确认兑换</button>
+                <button class="btn btn-submit" type="button" ng-click="$ctrl.ok()" ng-disabled="useful">确认兑换</button>
                 <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">关闭</button>
             </div>
             <div class="success_popup" ng-show="$ctrl.isVisible">
@@ -349,6 +274,7 @@
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/mock.js"></script>
     <script src="membPointsExchange.js"></script>
 </body>
 
