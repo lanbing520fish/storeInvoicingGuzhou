@@ -93,7 +93,7 @@ angular
                 'code': null,
                 'msg': '',
                 'data|5': [{
-                    'identifyType': '@id',
+                    'identifyType': 111,
                     'identifyName': '@name'
                 }],
                 'errors': null
@@ -248,7 +248,8 @@ angular
         $rootScope.selectLeaguerLabel = function(currentPage) {
             httpMethod.queryLeaguerLabels({
                 curPage: currentPage || 1,
-                pageSize: 10
+                pageSize: 10,
+                totalSize: 0
             }).then(function(rsp) {
                 scope.labelsData = rsp.data.list;
                 scope.labelTotalNum = rsp.data.total;
