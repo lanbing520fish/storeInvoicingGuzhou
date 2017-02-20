@@ -227,7 +227,7 @@ angular
                 certificateNum: $scope.certificateNum || '',
                 certificateType: $scope.identifyType || '',
                 leaguerCardId: $scope.leaguerCardId || '',
-                leaguerLabelIds: $scope.leaguerLabelIds.join(',') || '',
+                leaguerLabelIds: $scope.leaguerLabelIds ? $scope.leaguerLabelIds.join(',') : '',
                 leaguerMobile: $scope.leaguerMobile || '',
                 leaguerName: $scope.leaguerName || '',
                 statusCd: $scope.statusCd || '',
