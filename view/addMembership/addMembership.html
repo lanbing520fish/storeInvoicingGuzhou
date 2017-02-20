@@ -26,7 +26,7 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">会员姓名：</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" ng-model="membershipInfoType.memberName">
                             </div>
                         </div>
                     </div>
@@ -35,8 +35,9 @@
                             <div class="form-group">
                                 <label class="control-label">证件类型：</label>
                                 <div class="select-box">
-                                    <select class="form-control">
+                                   <select class="form-control" ng-model="membershipInfoType.identifyType">
                                         <option value="">全部</option>
+                                        <option ng-repeat="item in offerTypeList" value="{{item.identifyType}}">{{item.identifyName}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -44,7 +45,7 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">证件号码：</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" ng-model="membershipInfoType.identifyNumber">
                             </div>
                         </div>
                     </div>
@@ -52,15 +53,16 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">手机号码：</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" ng-model="membershipInfoType.phoneNumber">
                             </div>
                         </div>
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">会员等级：</label>
                                 <div class="select-box">
-                                    <select class="form-control">
-                                        <option value="">普通会员</option>
+                                    <select class="form-control" ng-model="membershipInfoType.memberLevelName">
+                                        <option value="">全部</option>
+                                        <option ng-repeat="item in levelTypeList" value="{{item.memberLevel}}">{{item.memberLevelName}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -77,7 +79,7 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">会员卡号：</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" ng-model="membershipInfoType.memberNum">
                             </div>
                         </div>
                     </div>
@@ -93,8 +95,9 @@
                             <div class="form-group">
                                 <label class="control-label">证件性别：</label>
                                 <div class="select-box">
-                                    <select class="form-control">
-                                        <option value="">请选择会员性别</option>
+                                    <select class="form-control" ng-model="membershipInfoType.sex">
+                                        <option value="">全部</option>
+                                        <option ng-repeat="item in sexTypeList" value="{{item.sex}}">{{item.sex}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -102,7 +105,7 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">会员生日：</label>
-                                <input type="text" class="form-control" placeholder="输入会员生日（YYYYMMDD:20161201）">
+                                <input type="text" class="form-control" placeholder="输入会员生日（YYYYMMDD:20161201）" ng-model="membershipInfoType.memberBirth">
                             </div>
                         </div>
                     </div>
@@ -110,17 +113,13 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">电子邮箱：</label>
-                                <div class="select-box">
-                                    <select class="form-control">
-                                        <option value="">请输入电子邮箱</option>
-                                    </select>
-                                </div>
+                                <input type="text" class="form-control" placeholder="请输入电子邮箱" ng-model="membershipInfoType.email">
                             </div>
                         </div>
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">微信号：</label>
-                                <input type="text" class="form-control" placeholder="请输入微信号">
+                                <input type="text" class="form-control" placeholder="请输入微信号" ng-model="membershipInfoType.wechat">
                             </div>
                         </div>
                     </div>
@@ -128,7 +127,7 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label class="control-label">会员标签：</label>
-                                <input type="text" class="form-control" placeholder="请选择会员标签" disabled>
+                                <input type="text" class="form-control" placeholder="请选择会员标签" disabled ng-model="membershipInfoType.memberMark">
                                 <button type="submit" class="btn btn-sm btn-searching" ng-click="openStoreQueryType()"><i class="iconfont">&#xe600;</i></button>
                             </div>
                         </div>
@@ -137,25 +136,25 @@
                         <div class="col-xs-10">
                             <div class="form-group">
                                 <label class="control-label">备注：</label>
-                                <textarea col="" id="remarks" class="form-control edit-txt" ng-model="modifiedQueryType.remarks"></textarea>
+                                <textarea col="" id="remarks" class="form-control edit-txt" ng-model="membershipInfoType.remark"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-center btns">
-                    <button class="btn btn-submit">确认</button>
-                    <button class="btn btn-cancel">取消</button>
+                    <button class="btn btn-submit" ng-click="modifyOperateFormSubmit()" ng-disabled="isForbid">确认</button>
+                    <button class="btn btn-cancel" ng-click="">取消</button>
                 </div>
             </form>
         </div>
-        <!-- 选择会员标签 -->
+         <!-- 选择会员标签 -->
         <script type="text/ng-template" id="storeQueryTypeModal.html">
             <div class="modal-header">
                 <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
                 <h3 class="modal-title" id="serial-number-title1"><img class="icon" src="../../resources/images/icon-list1.png">会员管理——选择会员标签</h3>
             </div>
             <!-- 结果列表 -->
-            <div class="result-list">
+            <div class="result-list" ng-controller="qryMemberMarkResult">
                 <div class="result-head">
                     <div class="row">
                         <div class="col-xs-4">
@@ -166,7 +165,7 @@
                     </div>
                 </div>
                 <div class="result-table">
-                    <table class="table table-hover table-bordered grey-table">
+                    <table class="table table-hover table-bordered grey-table" ng-cloak>
                         <thead>
                             <tr>                        
                                 <th width="8%">选择</th>
@@ -175,37 +174,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat="item in qryMemberMarkList">
                                 <td>
-                                    <input type="checkbox" name="store">
+                                    <input type="checkbox" name="checkbox{{$index}}" ng-click="check(item)" ng-model="isChecked">
+                                </td>
+                                <td style="display: none;">
+                                    <p ng-bind="item.markId"></p>
                                 </td>
                                 <td>
-                                    <p>体育</p>
+                                    <p ng-bind="item.markName"></p>
                                 </td>
                                 <td>
-                                    <p>体育</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>音乐</p>
-                                </td>
-                                <td>
-                                    <p>音乐</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>汽车</p>
-                                </td>
-                                <td>
-                                    <p>汽车</p>
+                                    <p ng-bind="item.markDesc"></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -215,8 +195,8 @@
                     </p>
                 </div>
                 <div ng-controller="paginationCtrl" class="text-center page">
-                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged2()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number" ng-bind="totalNum"></span>条记录，当前显示第<span class="number" ng-bind="currentPage"></span>页</div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -235,6 +215,7 @@
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/mock.js"></script>
     <script src="addMembership.js"></script>
 </body>
 

@@ -47,7 +47,7 @@ angular
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                data: 'body=' + encodeURI(JSON.stringify(param))
+                data: 'param=' + encodeURI(JSON.stringify(param))
             }).success(function(data, header, config, status) {
                 if (status !== 200) {
                     // 跳转403页面
