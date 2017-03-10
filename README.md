@@ -20,5 +20,3 @@
 * 新增会员 **addMembership**
 * 会员信息查询 **membershipInfoQuery**
 * 会员信息详情 **detailMembership**
-* 店员管理 **salesmanManage**
-* 新增店员 **addNewSalesman**
