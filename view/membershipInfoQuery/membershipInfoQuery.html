@@ -13,9 +13,9 @@
 
 <body ng-app="checkModule">
     <!-- DOM结构开始 -->
-    <div class="check top-line wavy-line" ng-controller="addPurchaseModalCtrl as $ctrl">
+    <div class="check top-line wavy-line" ng-controller="membershipInfoCtrl">
         <!-- 条件查询 -->
-        <div class="condition-query fn-clear" ng-controller="conditionQuery">
+        <div class="condition-query fn-clear">
             <p class="condition-query-title fn-left">搜
                 <br/>索</p>
             <div class="condition-query-box fn-right">
@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <label class="control-label">证件类型：</label>
                                 <div class="select-box">
-                                    <select class="form-control">
+                                    <select class="form-control" ng-model="identifyType" ng-options="identifyType.identifyType as identifyType.identifyName for identifyType in identifyTypesList">
                                         <option value="">全部</option>
                                     </select>
                                 </div>
@@ -34,13 +34,13 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">证件号码：</label>
-                                <input type="text" class="form-control" placeholder="请输入证件号码">
+                                <input type="text" ng-model="certificateNum" class="form-control" placeholder="请输入证件号码">
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员卡号：</label>
-                                <input type="text" class="form-control" placeholder="请输入会员卡号">
+                                <input type="text" ng-model="leaguerCardId" class="form-control" placeholder="请输入会员卡号">
                             </div>
                         </div>
                     </div>
@@ -48,20 +48,20 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员姓名：</label>
-                                <input type="text" class="form-control" placeholder="请输入会员姓名">
+                                <input type="text" ng-model="leaguerName" class="form-control" placeholder="请输入会员姓名">
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">手机号码：</label>
-                                <input type="text" class="form-control" placeholder="请输入会员姓名">
+                                <input type="text" ng-model="leaguerMobile" class="form-control" placeholder="请输入会员姓名">
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">状态：</label>
                                 <div class="select-box">
-                                    <select class="form-control">
+                                    <select class="form-control" ng-model="statusCd" ng-options="status.statusCd as status.statusName for status in statusList">
                                         <option value="">全部</option>
                                     </select>
                                 </div>
@@ -72,13 +72,14 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员标签：</label>
-                                <input type="text" class="form-control" disabled>
-                                <button type="submit" class="btn btn-sm btn-searching" ng-click="openStoreQueryType()"><i class="iconfont">&#xe600;</i></button>
+                                <input type="text" ng-model="leaguerLabelNames" class="form-control" disabled>
+                                <input type="hidden" ng-model="leaguerLabelIds" class="form-control">
+                                <button type="submit" class="btn btn-sm btn-searching" ng-click="selectLeaguerLabel()"><i class="iconfont">&#xe600;</i></button>
                             </div>
                         </div>
                         <div class="col-xs-8 text-right">
                             <div class="form-group btn-search">
-                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                                <button type="submit" ng-click="queryMemberInfo()" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
                             </div>
                         </div>
                     </div>
@@ -116,58 +117,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr ng-repeat="item in queryLeaguerListData">
                             <td>
-                                <p class="overflow-handle" title="">阜宁山阳城河路社区店</p>
+                                <p class="overflow-handle" title="{{item.retailShopName}}" ng-bind="item.retailShopName"></p>
                             </td>
                             <td>
-                                <p>莫伊</p>
+                                <p class="overflow-handle" ng-bind="item.leaguerName"></p>
                             </td>
                             <td>
-                                <p>52344</p>
+                                <p class="overflow-handle" ng-bind="item.leaguerId"></p>
                             </td>
                             <td>
-                                <p>18012533478</p>
+                                <p class="overflow-handle" ng-bind="item.leaguerMobile"></p>
                             </td>
                             <td>
-                                <p>身份证</p>
+                                <p class="overflow-handle" ng-bind="item.certificateType | certificateTypeFilter"></p>
                             </td>
                             <td>
-                                <p>320106197702060211</p>
+                                <p class="overflow-handle" ng-bind="item.certificateNum"></p>
                             </td>
                             <td>
-                                <p>黄金会员</p>
+                                <p class="overflow-handle" ng-bind="item.levelName"></p>
                             </td>
                             <td>
-                                <p>可用</p>
+                                <p class="overflow-handle" ng-bind="item.statusName"></p>
                             </td>
                             <td>
-                                <p class="overflow-handle" title="">体育,音乐</p>
+                                <p class="overflow-handle" ng-bind="item.leaguerLabelsName" class="overflow-handle" title=""></p>
                             </td>
                             <td>
-                                <p>2016-01-12</p>
+                                <p class="overflow-handle" ng-bind="item.createDt"></p>
                             </td>
                             <td>
-                                <p>[ 7007 ]<a class="link-detail">历史明细</a></p>
+                                <p>[ {{item.account.accountAmount}} ]<a class="link-detail" ng-click="showPointsDetail(item)">历史明细</a></p>
                             </td>
                             <td>
-                                <button class="btn btn-xs btn-edit"><i class="iconfont">&#xe610;</i> 详情
+                                <button ng-click="showDetail(item)" class="btn btn-xs btn-edit"><i class="iconfont">&#xe610;</i> 详情
                                 </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length" ng-cloak>
+                <p class="no-data" ng-if="queryLeaguerListData && !queryLeaguerListData.length" ng-cloak>
                     没有数据
                 </p>
             </div>
             <div ng-controller="paginationCtrl" class="text-center page">
                 <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                <div class="page-num">共<span class="number" ng-cloak ng-bind="totalNum || 0"></span>条记录，当前显示第<span class="number" ng-cloak ng-bind="currentPage || 0"></span>页</div>
             </div>
         </div>
         <!-- 选择会员标签 -->
-        <script type="text/ng-template" id="storeQueryTypeModal.html">
+        <script type="text/ng-template" id="selectLeaguerLabel.html">
             <div class="modal-header">
                 <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
                 <h3 class="modal-title" id="serial-number-title1"><img class="icon" src="../../resources/images/icon-list1.png">会员管理——选择会员标签</h3>
@@ -193,48 +194,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat='label in labelsData'>
                                 <td>
-                                    <input type="checkbox" name="store">
+                                    <input value="{{label.leaguerLabelCd}}" type="checkbox" ng-click="clickLabel($event, label.leaguerLabelCd, label.leaguerLabelsName)" name="store">
                                 </td>
                                 <td>
-                                    <p>体育</p>
+                                    <p ng-bind="label.leaguerLabelsName"></p>
                                 </td>
                                 <td>
-                                    <p>体育</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>音乐</p>
-                                </td>
-                                <td>
-                                    <p>音乐</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>汽车</p>
-                                </td>
-                                <td>
-                                    <p>汽车</p>
+                                    <p ng-bind="label.leaguerLabelDetail"></p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length" ng-cloak>
+                    <p class="no-data" ng-if="labelsData && !labelsData.length" ng-cloak>
                         没有数据
                     </p>
                 </div>
-                <div ng-controller="paginationCtrl" class="text-center page">
-                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                <div ng-controller="labelPaginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="labelTotalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number" ng-cloak ng-bind="labelTotalNum || 0"></span>条记录，当前显示第<span class="number" ng-cloak ng-bind="currentPage || 0"></span>页</div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -253,6 +232,7 @@
     <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
     <script src="../../resources/js/lodash.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/mock.js"></script>
     <script src="membershipInfoQuery.js"></script>
 </body>
 

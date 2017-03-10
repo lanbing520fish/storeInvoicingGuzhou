@@ -13,8 +13,8 @@
 
 <body ng-app="addStoreManageModule">
     <!-- DOM结构开始 -->
-    <div class="addCheck top-line wavy-line" ng-controller="addPurchaseModalCtrl as $ctrl">
-        <div class="purchase-infomation" ng-controller="purchaseQueryCtrl">
+    <div class="addCheck top-line wavy-line">
+        <div class="purchase-infomation" ng-controller="detailMembershipInfoCtrl">
             <form name="infomationForm" class="form-inline" role="form">
                 <!-- 会员基本信息 -->
                 <div class="model-header">
@@ -26,19 +26,19 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员姓名：</label>
-                                <p class="detail-label member-name">草伊</p>
+                                <p class="detail-label member-name" ng-bind="detailMembershipInfo.leaguerName"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">证件类型：</label>
-                                <p class="detail-label">身份证</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.certificateType | certificateTypeFilter"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">证件号码：</label>
-                                <p class="detail-label">320106197702060211</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.certificateNum"></p>
                             </div>
                         </div>
                     </div>
@@ -46,19 +46,19 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">手机号码：</label>
-                                <p class="detail-label">18012533478</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerMobile"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员等级：</label>
-                                <p class="detail-label">黄金会员</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.levelName"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员状态：</label>
-                                <p class="detail-label">可用</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.statusName"></p>
                             </div>
                         </div>
                     </div>
@@ -73,13 +73,13 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员卡号：</label>
-                                <p class="detail-label">5332</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerId"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">累计消费：</label>
-                                <p class="detail-label">10972</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.totalConsumption"></p>
                             </div>
                         </div>
                     </div>
@@ -94,19 +94,19 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员性别：</label>
-                                <p class="detail-label">男</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerSexName"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员生日：</label>
-                                <p class="detail-label">1997-11-10</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerBirthday"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">电子邮箱：</label>
-                                <p class="detail-label">18012533478@189.cn</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerEmail"></p>
                             </div>
                         </div>
                     </div>
@@ -114,13 +114,13 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">微信号：</label>
-                                <p class="detail-label">18012533478</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerWechat"></p>
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员标签：</label>
-                                <p class="detail-label">体育,音乐</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.leaguerLabelsName"></p>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">备注：</label>
-                                <p class="detail-label">按时发达撒旦法撒旦法第三法师打发士大夫撒旦法按时发达撒旦法撒旦法第三法师打发士大夫撒旦法按时发达撒旦法撒旦法第三法师打发士大夫</p>
+                                <p class="detail-label" ng-bind="detailMembershipInfo.remarks"></p>
                             </div>
                         </div>
                     </div>
@@ -143,89 +143,13 @@
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label class="control-label">会员积分：</label>
-                                <p class="detail-label">7007<button class="btn btn-sm btn-query detail-list">历史明细</button></p>
+                                <p class="detail-label"><strong class="purple-color" ng-bind="detailMembershipInfo.account.accountAmount"></strong><button class="btn btn-sm btn-query detail-list" ng-click="showPointsDetail(detailMembershipInfo.account.pointsAccountId)">历史明细</button></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <!-- 选择会员标签 -->
-        <script type="text/ng-template" id="storeQueryTypeModal.html">
-            <div class="modal-header">
-                <button type="button" class="close iconfont" ng-click="$ctrl.cancel()">&#xe611;</button>
-                <h3 class="modal-title" id="serial-number-title1"><img class="icon" src="../../resources/images/icon-list1.png">会员管理——选择会员标签</h3>
-            </div>
-            <!-- 结果列表 -->
-            <div class="result-list">
-                <div class="result-head">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <div class="model-header">
-                                <p class="model-title">标签列表</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="result-table">
-                    <table class="table table-hover table-bordered grey-table">
-                        <thead>
-                            <tr>
-                                <th width="8%">选择</th>
-                                <th width="20%">标签名称</th>
-                                <th>标签描述</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>体育</p>
-                                </td>
-                                <td>
-                                    <p>体育</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>音乐</p>
-                                </td>
-                                <td>
-                                    <p>音乐</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="store">
-                                </td>
-                                <td>
-                                    <p>汽车</p>
-                                </td>
-                                <td>
-                                    <p>汽车</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length" ng-cloak>
-                        没有数据
-                    </p>
-                </div>
-                <div ng-controller="paginationCtrl" class="text-center page">
-                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-submit" type="button" ng-disabled="isDisabled" ng-click="$ctrl.ok()">确定</button>
-                <button class="btn btn-cancel" type="button" ng-click="$ctrl.cancel()">取消</button>
-            </div>
-        </script>
     </div>
     <script src="../../resources/js/angular.min.js"></script>
     <script src="../../resources/js/angular-touch.min.js"></script>
