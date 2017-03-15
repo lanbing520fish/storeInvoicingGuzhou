@@ -1,0 +1,68 @@
+body{
+	background: #fff;
+}
+.content{
+	width:800px;
+	margin:30px auto;
+	text-align: center;
+	font-size: 14px;
+}
+h1{
+	font-size: 25px;
+	font-weight: normal;
+	margin-bottom: 25px;
+}
+.ptop{
+	line-height: 25px;
+	font-size: 14px;
+	text-align: left;
+	padding-left:50px;
+	color:#333;
+}
+
+.ptop .d1{
+	width:60%;
+	float:left;
+}
+.ptop .d2{
+	width:40%;
+	float:right;
+}
+table{
+	width:100%;
+	margin: :0 auto;
+	border-collapse:collapse;
+	border:none;
+	text-align: center;
+}
+table td{
+	border:1px solid #333;
+	height:35px;
+	line-height: 20px;
+}
+table p span{
+	font-size:14px;
+	color:black
+}
+.bottom{
+	text-align: left;
+	padding-left:34px;
+}
+.bottom span{
+	display: inline-block;
+	color:#333;
+	width:23%;
+	line-height:30px;
+	text-align: left;
+}
+.btn-print{
+	float:right;
+	margin:50px 10px 0 0;
+	padding:4px 12px;
+	background: #fff;
+	border-radius: 5px;
+	border:1px solid #ddd;
+}
+
+
+
