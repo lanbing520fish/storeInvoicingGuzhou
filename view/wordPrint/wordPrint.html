@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>终端销售凭证</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="wordPrint.css">
+</head>
+
+<body>
+    <div class="content">
+        <h1>终端销售凭证</h1>
+        <p class="ptop fn-clear">
+            <span class="d1">销售门店：</span>
+            <span class="d2">受理日期：</span>
+        </p>
+        <p class="ptop fn-clear">
+            <span class="d1">销售柜台：</span>
+            <span class="d2">受理流水：</span>
+        </p>
+        <table border=1 cellspacing=0 cellpadding=0>
+            <tr>
+                <td width='15%' >
+                    <p><span>顾客姓名</span></p>
+                </td>
+                <td width='23%' colspan=2 >
+                    <p><span>联系电话</span></p>
+                </td>
+                <td colspan=3>
+                    <p><span>联系地址</span></p>
+                </td>
+                <td width='25%' colspan=2 >
+                    <p><span>会员卡号</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style='border-top:none;'>
+                    <p><span></span></p>
+                </td>
+                <td colspan=2 style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333'>
+                    <p><span></span></p>
+                </td>
+                <td colspan=3 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333'>
+                    <p><span></span></p>
+                </td>
+                <td colspan=2 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+            </tr>
+            <tr>
+                <td width='40%' colspan=2 style='border-top:none;'>
+                    <p><span>商品名称</span></p>
+                </td>
+                <td width='20%' colspan=2 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span>机身串码</span></p>
+                </td>
+                <td width='15%' style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span>单位</span></p>
+                </td>
+                <td width='10%' colspan=2 style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span>数量</span></p>
+                </td>
+                <td style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span>单价（元）</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 style='border-top:none;'>
+                    <p><span></span></p>
+                </td>
+                <td colspan=2 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+                <td style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+                <td colspan=2 style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+                <td style='border-top:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+            </tr>
+            <tr>
+                <td width='38%' colspan=3 style='border-top:none;'>
+                    <p><span>收款金额（小写）</span></p>
+                </td>
+                <td width='33%' colspan=3 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span>收款金额（大写）</span></p>
+                </td>
+                <td colspan=2 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span>付款方式</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td width='38%' colspan=3 style='border-top:none;'>
+                    <p><span></span></p>
+                </td>
+                <td width='33%' colspan=3 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+                <td colspan=2 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+            </tr>
+            <tr style='height:50px;'>
+                <td width='15%' style='border-top:none;'>
+                    <p><span>办理合约</span></p>
+                    <p><span>（活动）</span></p>
+                </td>
+                <td colspan=7 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+            </tr>
+            <tr>
+                <td width='15%' style='border-top:none;'>
+                    <p><span>备注</span></p>
+                </td>
+                <td colspan=7 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+            </tr>
+            <tr style='height:60px;'>
+                <td width='15%' style='border-top:none;'>
+                    <p><span>温馨提示</span></p>
+                </td>
+                <td colspan=7 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                    <p><span></span></p>
+                    <p><span></span></p>
+                </td>
+            </tr>
+            <tr style=''>
+                <td width='15%' style='border-top:none;'>
+                    <p><span>顾客签名</span></p>
+                </td>
+                <td colspan=7 style='border-top:none;border-left:none;border-bottom:1px solid #333;border-right:1px solid #333;'>
+                    <p><span></span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="bottom">
+            <span>销售员：</span>
+            <span>收银员：</span>
+            <span>门店地址：</span>
+        </p>
+        <button class="btn-print">打印</button>
+    </div>
+   
+</body>
+
+</html>
