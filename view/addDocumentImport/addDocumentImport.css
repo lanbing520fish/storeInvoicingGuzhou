@@ -1,0 +1,256 @@
+.addDocumentImport {
+    min-height: 20px;
+    margin: 10px;
+    border-left: 1px solid #d5d4dc;
+    border-right: 1px solid #d5d4dc;
+    background-color: #fff;
+    padding-bottom:10px;
+}
+.steps{
+    width:100%;
+    border-bottom: 1px dashed #d5d4dc;
+}
+.step {
+    width: 86%;
+    margin: 0 auto;
+    padding: 12px 0 6px;
+}
+
+.step-item {
+    position: relative;
+    width: 50%;
+    height: 45px;
+    padding-top: 20px;
+}
+
+.step-item .step-icon {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 10px);
+    z-index: 9;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+
+.step-item .step-line {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    z-index: 8;
+    width: 100%;
+    height: 3px;
+    background-color: #ddd;
+}
+
+.step-item .step-title {
+    height: 25px;
+    line-height: 25px;
+    color: #ddd;
+    text-align: center;
+}
+
+.step-item.current .step-icon,
+.step-item.current .step-line {
+    background-color: #a870e0;
+}
+.step-item.current .step-title {
+    color: #a870e0;
+}
+.step-content {
+    width: 100%;
+    height: 100%;
+}
+
+.condition-query {
+    height: 80px;
+    padding: 10px 10px 10px 0;
+    background: url('../../resources/images/query-bg.png') no-repeat 0 0;
+    background-color: #f8f8f8;
+    border-bottom: 1px dashed #d2d2d2;
+    border-top: 1px dashed #d2d2d2;
+}
+
+.condition-query-title {
+    width: 20px;
+    height: 50px;
+    margin: 5px 0 5px 8px;
+    line-height: 25px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.condition-query-box {
+    width: calc(100% - 40px);
+}
+
+.datepicker-input {
+    position: relative;
+    width: 45%;
+}
+
+.datepicker-text {
+    width: 10%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.icon_time {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #cfa9f5;
+    cursor: pointer;
+}
+.salesman-info{
+    width:100%;
+    height:77px;
+    background: #f8f8f8;
+    border-bottom: 1px dashed #d5d4dc;
+}
+.salesman-info .titl{
+    font-size:14px;
+    padding:10px 0;
+    font-weight: bold;
+}
+.salesman-info .titl i{
+    font-size:18px;
+    margin:0 5px 0 10px;
+    color:#a870e0;
+    vertical-align: text-top;
+}
+.detail-label {
+    width: 100%;
+    line-height: 24px;
+}
+
+.form-group{
+    padding-left:120px;
+}
+.form-group label{
+    width:120px !important;
+}
+.form-group .reduce-width {
+    width: calc(100% - 90px) !important;
+}
+
+.result-list {
+    margin: 10px 5px;
+    border: 1px solid #d5d4dc;
+}
+.firstStep{
+    height:330px;
+}
+.firstStep .import{
+    margin:20px 0 0 10px;
+}
+.firstStep .import .lab{
+    display: inline-block;
+    font-size: 14px;
+}
+.firstStep .import .lab img{
+    margin:-2px 5px 0 0;
+    vertical-align: text-top;
+}
+.firstStep .import .btns{
+    position: relative;
+    display:inline-block;
+    width:296px;
+    height:26px;
+    line-height: 26px;
+    border:1px solid #d5d4dc;
+    border-radius: 26px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.firstStep .import .file{
+    position: absolute;
+    width:296px;
+    height:26px;
+    border:0;
+    opacity: 0;
+}
+.firstStep .import .filename{
+    position: absolute;
+    width:248px;
+    height:26px; 
+    text-align:center;
+    line-height: 26px;
+}
+.firstStep .import .look{
+    position: absolute;
+    top:1px;
+    right:1px;
+    width:58px;
+    height: 22px;
+    border:1px solid #ceaaf2;
+    color:#764aa2;
+    background:#eddbff;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 22px;
+}
+.firstStep .import .importBtn{
+    margin-left:10px;
+    display: inline-block;
+    width:70px;
+    height:26px;
+    border-radius: 14px;
+    background: #a870e0;
+    color:#fff;
+    border:0;
+}
+.muban{
+    width:95%;
+    margin:12px auto;
+    background: #eddbff;
+    height:28px;
+}
+.muban li{
+    float: left;
+    margin:6px 0;
+    padding:0 23px;
+    border-right:1px solid #764aa2;
+}
+.muban li:last-child{
+    border-right:0;
+}
+.muban li i{
+    color:#9b77bf;
+    margin-right: 3px;
+}
+.muban li .load{
+    color:#f2232a;
+    cursor: pointer;
+}
+.model-header {
+    height: 25px;
+    line-height: 25px;
+}
+.model-title {
+    color: #333;
+    font-size: 12px;
+    text-indent: 10px;
+}
+.result-table table{
+    border-left:0;
+    border-right:0;
+    text-align: center;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+     background-color: #fff; 
+}
+
+
+
+
+
+
+
+
+
+
+

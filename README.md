@@ -20,3 +20,6 @@
 * 新增会员 **addMembership**
 * 会员信息查询 **membershipInfoQuery**
 * 会员信息详情 **detailMembership**
+
+* word排版静态页面 **wordPrint**
+* 新增导入单据 **addDocumentImport**
