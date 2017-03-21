@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>终端批量导入</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="terminalBulkImport.css">
+</head>
+
+<body ng-app="terminalBulkImportModule">
+    <!-- DOM结构开始 -->
+    <div class="history top-line wavy-line" ng-controller="conditionQuery">
+        <!-- 条件查询 -->
+        <div class="condition-query fn-clear">
+            <p class="condition-query-title fn-left">搜
+                <br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row mb10">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">入库门店：</label>
+                                <p class="detail-label" ng-if="showstores === true" ng-cloak ng-bind="documentsList.retailShopName"></p>
+
+                                <div class="select-box" ng-if="showstores === false"  ng-cloak>
+                                    <select class="form-control" id="retailShopItem" ng-model="documentsList.retailShopItem">
+                                        <option value="">请选择入库门店</option>
+                                        <option ng-repeat="item in wareStoreList" value="{{item.retailShopId}}" ng-bind="item.retailShopName"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">仓库：</label>
+                                <div class="select-box">
+                                    <select class="form-control" id="retailPriceItem" ng-model="documentsList.retailPriceItem">
+                                        <option ng-repeat="item in warehouseList" value="{{item.storageId}}" ng-bind="item.storageName"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">制单日期：</label>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="createStartDt" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.createStartDt" is-open="startPopupOpened" min-date="minStartDate" max-date="maxStartDate" datepicker-options="startDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="startOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="datepicker-text fn-left">至</div>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="createEndDt" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.createEndDt" is-open="endPopupOpened" min-date="minEndDate" max-date="maxEndDate" datepicker-options="endDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="endOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">单据号：</label>
+                                <input type="text" class="form-control reduce-width" ng-model="documentsList.orderId">
+                            </div>
+                        </div> 
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">制单人姓名：</label>
+                                <input type="text" class="form-control reduce-width" ng-model="documentsList.staffName">
+                            </div>
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <div class="form-group btn-search">
+                                <button type="submit" ng-click="bulkimportlistQuery()" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 结果列表 -->
+        <div class="result-list" ng-controller="resultCtrl">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">批量导入单据列表</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <button class="btn btn-xs btn-set"><i class="iconfont">
+                        &#xe60e;</i> 新增导入</button>
+                    </div>
+                </div>
+            </div>
+            <div class="result-table">
+                <div class="result-table">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="15%">单据号</th>
+                                <th width="15%">入库门店</th>
+                                <th width="15%">入库仓库</th>
+                                <th width="15%">制单人</th>
+                                <th>制单时间</th>
+                                <th width="15%">单据详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in bulkimportLlist" ng-cloak>
+                                <td>
+                                    <p ng-bind="item.orderId"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.retailShopName"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.storageName"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.staffName"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.createDt"></p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-xs btn-edit" ng-click="detailsDocuments($index, '详情')"><i class="iconfont">&#xe60b;</i> 详情
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-if="bulkimportLlist && !bulkimportLlist.length" ng-cloak>
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number" ng-cloak ng-bind="totalNum || 0"></span>条记录，当前显示第<span class="number" ng-cloak ng-bind="currentPage || 0"></span>页</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular-locale_zh-cn.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/mock.js"></script>
+    <script src="../../resources/js/moment.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="terminalBulkImport.js"></script>
+</body>
+
+</html>
