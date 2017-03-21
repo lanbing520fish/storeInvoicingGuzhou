@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增导入单据</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="addDocumentImport.css">
+</head>
+<body ng-app="addDocumentImportModule">
+    <div class="addDocumentImport top-line wavy-line" ng-controller="addDocumentCtrl">
+        <div class="salesman-info">
+            <div class="titl"><i class="iconfont">&#xe6d4;</i>导入信息</div>
+            <div class="row mb10">
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">门店：</label>
+                        <p class="detail-label member-name">中国电信@平庄镇北街区营业厅</p>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">仓库：</label>
+                        <div class="select-box" ng-show="stepNum === 0">
+                            <select ng-model="storageDefault" class="form-control" ng-options="item.storageId as item.storageName for item in storageList">
+                            </select>
+                        </div>
+                        <p class="detail-label member-name" ng-bind="storageName" ng-show="stepNum === 1"></p>
+                    </div>
+                </div>
+               
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">制单人：</label>
+                        <p class="detail-label member-name">小王</p>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">制单日期：</label>
+                        <p class="detail-label member-name" ng-bind="dateNow"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="result-list bt-1p" ng-cloak>
+            <!-- step -->
+            <div class="steps">
+                <div class="step fn-clear">
+                    <li class="step-item fn-left" ng-cloak ng-class="{current: stepNum === 0}">
+                        <div class="step-icon"></div>
+                        <div class="step-line"></div>
+                        <p class="step-title">导入文件</p>
+                    </li>
+                    <li class="step-item fn-left" ng-cloak ng-class="{current: stepNum === 1}">
+                        <div class="step-icon"></div>
+                        <div class="step-line"></div>
+                        <p class="step-title">结果查看</p>
+                    </li>
+                </div>
+            </div>
+            <!-- 第一步 导入文件 -->
+            <div class="firstStep" ng-controller="firstStepCtrl" ng-show="stepNum === 0">
+                <div class="import">
+                    <label class="lab"><img src="../../resources/images/icon-list.png">导入文件：</label>
+                    <div class="btns">
+                        <a href="javascript:void(0)" class="look">浏览...</a>
+                        <div class="filename" ng-repeat="file in files"><span ng-bind="file.name"></span></div>
+                        <input type="file" class="file" id="hallImportInput" ng-click="checkFiles()">  
+                    </div>
+                    <button class="importBtn" ng-click="btn_upload()">导入</button>
+                </div>
+                <ul class="muban">
+                    <li><i class="iconfont">&#xe635;</i><span>导入模版.xls </span><a ng-href="#" class="load" target="_blank">下载</a></li>
+                    <li><i class="iconfont">&#xe635;</i><span>型号对照表.xls </span><a ng-href="#" class="load" target="_blank">下载</a></li>
+                </ul>
+            </div>
+            <!-- 第二步 导入结果 -->
+            <div class="secondStep" ng-controller="secondStepCtrl" ng-show="stepNum === 1">
+                <div class="result-head">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="model-header">
+                                <p class="model-title">备注：失败结果将会显示在前</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-table" ng-cloak>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="6%">序号</th>
+                                <th width="16%">串码</th>
+                                <th width="16%">规格编号</th>
+                                <th width="16%">规格名称</th>
+                                <th width="16%">是否成功</th>
+                                <th>失败原因</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in imeiStorageList">
+                                <td>
+                                    <p ng-bind="$index"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.instCode"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.terminalType"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.terminalTypeName"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.success"></p>
+                                </td>
+                                <td>
+                                    <p ng-bind="item.errorMsg" class="overflow-hander" title="{{item.errorMsg}}"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
+                        没有数据
+                    </p>
+                    <div ng-controller="paginationCtrl" class="text-center page">
+                        <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../resources/js/mock.js"></script>
+    <script src="../../resources/js/uploader.min.js"></script> 
+    <script src="addDocumentImport.js"></script>
+</body>
+
+</html>
