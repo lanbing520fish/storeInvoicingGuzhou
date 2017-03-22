@@ -62,7 +62,7 @@
                 </div>
             </div>
             <!-- 第一步 导入文件 -->
-            <div class="firstStep" ng-controller="firstStepCtrl" ng-show="stepNum === 0">
+            <div class="firstStep" ng-show="stepNum === 0">
                 <div class="import">
                     <label class="lab"><img src="../../resources/images/icon-list.png">导入文件：</label>
                     <div class="btns">
@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <!-- 第二步 导入结果 -->
-            <div class="secondStep" ng-controller="secondStepCtrl" ng-show="stepNum === 1">
+            <div class="secondStep" ng-show="stepNum === 1">
                 <div class="result-head">
                     <div class="row">
                         <div class="col-xs-4">
@@ -103,7 +103,7 @@
                         <tbody>
                             <tr ng-repeat="item in imeiStorageList">
                                 <td>
-                                    <p ng-bind="$index"></p>
+                                    <p ng-bind="$index + 1"></p>
                                 </td>
                                 <td>
                                     <p ng-bind="item.instCode"></p>
@@ -126,9 +126,9 @@
                     <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length">
                         没有数据
                     </p>
-                    <div ng-controller="paginationCtrl" class="text-center page">
+                    <div class="text-center page">
                         <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
-                        <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                        <div class="page-num">共<span class="number">{{totalNum}}</span>条记录，当前显示第<span class="number">{{currentPage}}</span>页</div>
                     </div>
                 </div>
             </div>

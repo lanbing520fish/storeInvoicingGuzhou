@@ -105,9 +105,7 @@ angular
         }
         return httpMethod;
     }])
-    .controller('addDocumentCtrl', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {}])
-
-    .controller('firstStepCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', '$timeout', 'uiUploader', function($scope, $rootScope, $log, httpMethod, $timeout, uiUploader) {
+    .controller('addDocumentCtrl', ['$scope', '$rootScope', '$log', 'httpMethod', 'uiUploader',function($scope, $rootScope, $log, httpMethod, uiUploader) {
         var param = {
             retailShopId: _.get($rootScope, 'retailShopId')
         };
@@ -161,7 +159,7 @@ angular
                             createDt: _.get($rootScope, 'dateNow'),
                             terminalList: _.get($scope, 'resp.terminalList')
                         };
-                        $scope.btn_import(param);
+                        $scope.btn_import(param);              
                         $rootScope.stepNum = 1;
                     };
                 }
@@ -173,6 +171,15 @@ angular
                 if (rsp.success) {
                     $rootScope.storageName = rsp.data.storageName;
                     $rootScope.imeiStorageList = rsp.data.resultList;
+                    $scope.totalNum = $rootScope.imeiStorageList.length; // 总条数
+                    $scope.currentPage = 1; // 当前页
+                    $scope.rowNumPerPage = 30; // 每页显示行数
+                    $scope.serialNubListChunk = _.chunk($rootScope.imeiStorageList, $scope.rowNumPerPage);
+                    $scope.serialNubShow = $scope.serialNubListChunk[0]; // 当前页待显示列表
+                    $scope.maxSize = 5; // 最大显示分页条数
+                    $scope.pageChanged = function() {
+                        $scope.serialNubShow = $scope.serialNubListChunk[$scope.currentPage - 1];
+                    };      
                 } else {
                     swal("OMG", rsp.msg || "获取串码批量入库接口失败!", "error");
                 }
@@ -181,23 +188,5 @@ angular
             });
         };
     }])
-    .controller('secondStepCtrl', ['$scope', '$log', '$timeout', function($scope, $log, $timeout) {
 
-    }])
 
-// 分页控制器
-.controller('paginationCtrl', ['$scope', '$rootScope', '$log', function($scope, $rootScope, $log) {
-    $scope.$on('pageChange', function() {
-        $scope.currentPage = 1;
-    });
-
-    $scope.maxSize = 10;
-    $scope.setPage = function(pageNo) {
-        $scope.currentPage = pageNo;
-    };
-
-    $scope.pageChanged = function() {
-        $scope.queryTypeFormSubmit($scope.currentPage);
-        $log.log('Page changed to: ' + $scope.currentPage);
-    };
-}]);
