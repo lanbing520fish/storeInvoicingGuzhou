@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>省市进销存汇总报表</title>
+    <link rel="stylesheet" href="../../resources/css/sweetalert.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../resources/css/common.css">
+    <link rel="stylesheet" href="summaryReportOfProvincesAndCities.css">
+</head>
+
+<body ng-app="staffModule">
+    <!-- DOM结构开始 -->
+    <div class="history top-line wavy-line">
+        <!-- 条件查询 -->
+        <div class="condition-query fn-clear" ng-controller="combinationQuery">
+            <p class="condition-query-title fn-left">搜
+                <br/>索</p>
+            <div class="condition-query-box fn-right">
+                <form name="conditionQueryForm" class="form-inline" role="form">
+                    <div class="row mb10">
+                        <div class="col-xs-4" ng-controller="cityCheckCtrl">
+                            <div class="form-group">
+                                <label class="control-label">地区：</label>
+                                <input type="text" class="form-control reduce-width" ng-model="checkedAreaName" readonly>
+                                <button ng-click="cityCheck()" type="submit" class="btn btn-sm btn-location"><i class="iconfont">&#xe6cb;</i></button>
+                                <div class="city-check-box" ng-cloak ng-show="visible">
+                                    <uib-tabset active="key">
+                                        <uib-tab index="1" heading="省份">
+                                            <div class="city-content">
+                                                <li class="city-item" ng-class="{current: $index === provinceIndex}" ng-repeat="item in regionList" ng-click="handleSelectCity('province', $index, item.commonRegionId, item.regionName)">{{item.regionName}}</li>
+                                            </div>
+                                        </uib-tab>
+                                        <uib-tab index="2" heading="城市">
+                                            <div class="city-content">
+                                                <li class="city-item" ng-class="{current: $index === cityIndex}" ng-repeat="item in regionList[provinceIndex].childrenCommon" ng-click="handleSelectCity('city', $index, item.commonRegionId, item.regionName)">{{item.regionName}}</li>
+                                            </div>
+                                        </uib-tab>
+                                    </uib-tabset>
+                                </div>
+                            </div>
+                            <div class="zhezhao" ng-click="clHide()" ng-show="visible" ng-cloak></div>
+                        </div> 
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">月份：</label>
+                                <div class="select-box">
+                                    <select class="form-control" ng-model="billDate" ng-options="opt.monthNub for opt in monthList">
+                                        <option value="">全部</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label">日期：</label>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="startDate" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.startDate" is-open="startPopupOpened" min-date="minStartDate" max-date="maxStartDate" datepicker-options="startDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="startOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="datepicker-text fn-left">至</div>
+                                <div class="datepicker-input fn-left">
+                                    <input type="text" id="endDate" class="form-control modify-input" uib-datepicker-popup readonly ng-model="conditionQueryForm.endDate" is-open="endPopupOpened" min-date="minEndDate" max-date="maxEndDate" datepicker-options="endDateOptions" show-button-bar="false"/>
+                                    <span class="icon_time" ng-click="endOpen()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row mb10">
+                        <div class="col-xs-4">
+                            <div class="form-group-dropdown">
+                                <label class="control-label">渠道类型：</label>
+                                <input type="text" class="form-control reduce-width form-input-bg"  ng-click="channelTypeCheck()" ng-model="checkedChannelType" placeholder="全部" readonly>
+                                <div class="choice-box" ng-cloak ng-show="channelType">
+                                    <div class="choice-box-head fn-clear">
+                                        <div class="choice-box-title fn-left">已选条件：</div>
+                                        <div class="choice-box-msg fn-right">（可多选）</div>
+                                        <div class="choice-list fn-clear">
+                                            <ul>
+                                                <li ng-repeat="item in checkedChannelList">
+                                                    <span ng-bind="item.channelTypeName"></span>
+                                                    <div class="choice-del" ng-click="delchannelType(item, $index)">X</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choice-content fn-clear">
+                                        <ul class="choice-content-list">
+                                            <li ng-repeat="item in loadChannelList" ng-class="{selected : shelve[$index]}">
+                                                <label for="channelType{{$index}}" ng-click="checkChannel(item, $index)" ng-bind="item.channelTypeName"></label>
+                                                <input id="channelType{{$index}}" ng-model="shelve[$index]" ng-checked="checked" type="checkbox" ng-disabled="shelve[$index]">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="choice-footer"><button class="btn-choice" ng-click="channelTypeConfirm()">确定</button></div>
+                                </div>
+                                <div class="zhezhao" ng-click="channelTypeHide()" ng-show="channelType" ng-cloak></div>
+                            </div>
+                        </div> 
+                        <div class="col-xs-4">
+                            <div class="form-group-dropdown">
+                                <label class="control-label">自有厅级别：</label>
+                                <input type="text" class="form-control reduce-width form-input-bg"  ng-click="ownHallLevelCheck()" ng-model="checkedOwnHallLevel" placeholder="全部" readonly>
+                                <div class="choice-box" ng-cloak ng-show="showLevel">
+                                    <div class="choice-box-head fn-clear">
+                                        <div class="choice-box-title fn-left">已选条件：</div>
+                                        <div class="choice-box-msg fn-right">（可多选）</div>
+                                        <div class="choice-list fn-clear">
+                                            <ul>
+                                                <li ng-repeat="item in checkedOwnHallLevelList">
+                                                    <span ng-bind="item.hallLevelName"></span>
+                                                    <div class="choice-del" ng-click="delOwnHallLevel(item, $index)">X</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choice-content fn-clear">
+                                        <ul class="choice-content-list">
+                                            <li ng-repeat="item in loadMyHallList" ng-class="{selected : levelShelve[$index]}">
+                                                <label for="ownHall{{$index}}" ng-click="checkOwnHallLevel(item, $index)" ng-bind="item.hallLevelName"></label>
+                                                <input id="ownHall{{$index}}" ng-model="levelShelve[$index]" ng-checked="checked" type="checkbox" ng-disabled="levelShelve[$index]">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="choice-footer"><button class="btn-choice" ng-click="ownHallLevelConfirm()">确定</button></div>
+                                </div>
+                                <div class="zhezhao" ng-click="ownHallLevelHide()" ng-show="showLevel" ng-cloak></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group-dropdown">
+                                <label class="control-label">专营店星级：</label>
+                                <input type="text" class="form-control reduce-width form-input-bg"  ng-click="storeStarCheck()" ng-model="checkedStoreStar" placeholder="全部" readonly>
+                                <div class="choice-box-right" ng-cloak ng-show="showStar">
+                                    <div class="choice-box-head fn-clear">
+                                        <div class="choice-box-title fn-left">已选条件：</div>
+                                        <div class="choice-box-msg fn-right">（可多选）</div>
+                                        <div class="choice-list fn-clear">
+                                            <ul>
+                                                <li ng-repeat="item in checkedStoreStarList">
+                                                    <span ng-bind="item.boutiqueStarName"></span>
+                                                    <div class="choice-del" ng-click="delStoreStar(item, $index)">X</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choice-content fn-clear">
+                                        <ul class="choice-content-list">
+                                            <li ng-repeat="item in loadBoutiqueStarList" ng-class="{selected : starShelve[$index]}">
+                                                <label for="star{{$index}}" ng-click="checkStoreStar(item, $index)" ng-bind="item.boutiqueStarName"></label>
+                                                <input id="star{{$index}}" ng-model="starShelve[$index]" ng-checked="checked" type="checkbox" ng-disabled="starShelve[$index]">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="choice-footer"><button class="btn-choice" ng-click="storeStarConfirm()">确定</button></div>
+                                </div>
+                                <div class="zhezhao" ng-click="storeStarHide()" ng-show="showStar" ng-cloak></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group-dropdown">
+                                <label class="control-label">品牌：</label>
+                                <input type="text" class="form-control reduce-width form-input-bg"  ng-click="brandChoice()" ng-model="checkedBrandName" placeholder="全部" readonly>
+                                <div class="choice-box" ng-cloak ng-show="brandType">
+                                    <div class="choice-box-head fn-clear">
+                                        <div class="choice-box-title fn-left">已选条件：</div>
+                                        <div class="choice-box-msg fn-right">（可多选）</div>
+                                        <div class="choice-list fn-clear">
+                                            <ul>
+                                                <li ng-repeat="item in checkedBrandList">
+                                                    <span ng-bind="item.brandName"></span>
+                                                    <div class="choice-del" ng-click="delBrand(item, $index)">X</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choice-content fn-clear">
+                                        <div class="fn-clear">
+                                            <div class="choice-phone-title fn-left">全部：</div>
+                                            <ul class="choice-phone-list">
+                                                <li ng-class="{selected: $index == checkedIndex}" ng-repeat="brand in brandLetterList" ng-bind="brand" ng-click="brandLetterChecked(brand, $index)"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="choice-brand-list mt5">
+                                            <ul class="choice-content-list">
+                                                <li ng-show="brandAll || item.firstLetter == brandFirstLetter" ng-repeat="item in brandList" ng-class="{selected : brandShelve[$index]}">
+                                                    <label for="brand{{$index}}" ng-click="checkBrand(item, $index)" ng-bind="item.brandName"></label>
+                                                    <input id="brand{{$index}}" ng-model="brandShelve[$index]" ng-checked="checked" type="checkbox" ng-disabled="brandShelve[$index]">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choice-footer"><button class="btn-choice" ng-click="brandChoiceConfirm()">确定</button></div>
+                                </div>
+                                <div class="zhezhao" ng-click="brandChoiceHide()" ng-show="brandType" ng-cloak></div>
+                            </div>
+                        </div> 
+                        <div class="col-xs-4">
+                            <div class="form-group-dropdown">
+                                <label class="control-label">机型：</label>
+                                <input type="text" class="form-control reduce-width form-input-bg"  ng-click="modelChoice()" ng-model="brandName" readonly ng-disabled="!modelCheckedBrandList.length > 0">
+                                <div class="choice-box" ng-cloak ng-show="modelType">
+                                    <div class="choice-box-head fn-clear">
+                                        <div class="choice-box-title fn-left">已选条件：</div>
+                                        <div class="choice-box-msg fn-right">（可多选）</div>
+                                        <div class="choice-list fn-clear">
+                                            <ul>
+                                                <li ng-repeat="model in checkModelList">
+                                                    <span ng-bind="model.modelName"></span>
+                                                    <div class="choice-del" ng-click="delModel(model, $index)">X</div>       
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="choice-content fn-clear">
+                                        <div class="fn-clear">
+                                            <div class="choice-phone-title fn-left">品牌：</div>
+                                            <ul class="choice-brand-list">
+                                                <li class="selected">全部</li>
+                                                <li ng-repeat="item in modelCheckedBrandList" ng-bind="item.brandName" ng-click="brandScreen(item)"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="fn-clear">
+                                            <div class="choice-phone-title fn-left">机型：</div>
+                                            <div class="choice-phone-form">
+                                                <input type="text" class="choice-phone-input">
+                                                <button class="btn-refer">查询</button>
+                                            </div>
+                                        </div>
+                                        <div class="mt5 fn-clear">
+                                            <ul class="choice-phone-list">
+                                                <li ng-class="{selected: $index == checkedModelIndex}" ng-repeat="model in modelLetterList" ng-bind="model" ng-click="modelLetterChecked(model,$index)"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="phone-type-box">
+                                            <div class="phone-type-list">
+                                                <ul>
+                                                    <!-- ------ -->
+
+
+                                                    <li ng-show="modelshow[$index]" ng-repeat="item in modelsList" ng-class="{selected : modelShelve[$index]}">
+                                                        <label for="model{{$index}}" ng-click="checkModel(item, $index)" ng-bind="item.modelName"></label>
+                                                        <input id="model{{$index}}" ng-model="modelShelve[$index]" ng-checked="checked" type="checkbox" ng-disabled="modelShelve[$index]">
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choice-footer"><button class="btn-choice" ng-click="modelChoiceHide()">确定</button></div>
+                                </div>
+                                <div class="zhezhao" ng-click="modelChoiceHide()" ng-show="modelType" ng-cloak></div>
+                            </div>
+                        </div> 
+                        <div class="col-xs-4 text-right">
+                            <div class="form-group btn-search">
+                                <button type="submit" class="btn btn-sm btn-query"><i class="iconfont">&#xe600;</i> 查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 结果列表 -->
+        <div class="result-list" ng-controller="resultCtrl">
+            <div class="result-head">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="model-header">
+                            <img class="model-img" src="../../resources/images/icon-list.png">
+                            <p class="model-title">省市进销存汇总报表</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <button class="btn btn-xs btn-set"><i class="iconfont">
+                        &#xe627;</i> Excel 导出</button>
+                    </div>
+                </div>
+            </div>
+            <div class="result-table">
+                <div class="result-table">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="4%" rowspan="2">序号</th>
+                                <th rowspan="2">地市</th>
+                                <th rowspan="2">区县</th>
+                                <th rowspan="2">入库量</th>
+                                <th rowspan="2">入库价值</th>
+                                <th colspan="3">销量</th>
+                                <th rowspan="2">销售额</th>
+                                <th rowspan="2">销售退机量</th>
+                                <th rowspan="2">销售退机额</th>
+                                <th rowspan="2">退库量</th>
+                                <th rowspan="2">库存量</th>
+                            </tr>
+                            <tr>
+                                <th>总销量</th>
+                                <th>合约机销量</th>
+                                <th>裸机销量</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>1</p>
+                                </td>
+                                <td>
+                                    <p>贵阳市</p>
+                                </td>
+                                <td>
+                                    <p>金阳新区</p>
+                                </td>
+                                <td>
+                                    <p>5000</p>
+                                </td>
+                                <td>
+                                    <p>¥ 20000</p>
+                                </td>
+                                <td>
+                                    <p>3000</p>
+                                </td>
+                                <td>
+                                    <p>1800</p>
+                                </td>
+                                <td>
+                                    <p>2100</p>
+                                </td>
+                                <td>
+                                    <p>¥ 300000</p>
+                                </td>
+                                <td>
+                                    <p>100</p>
+                                </td>
+                                <td>
+                                    <p>¥ 40000</p>
+                                </td>
+                                <td>
+                                    <p>80</p>
+                                </td>
+                                <td>
+                                    <p>1000</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" ng-if="queryTypeResultList && !queryTypeResultList.length" ng-cloak>
+                        没有数据
+                    </p>
+                </div>
+                <div ng-controller="paginationCtrl" class="text-center page">
+                    <ul uib-pagination total-items="totalNum" items-per-page="rowNumPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination-sm" boundary-links="true" rotate="false" first-text="首页" last-text="尾页" previous-text="<" next-text=">"></ul>
+                    <div class="page-num">共<span class="number">10</span>条记录，当前显示第<span class="number">1</span>页</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../resources/js/angular.min.js"></script>
+    <script src="../../resources/js/angular-touch.min.js"></script>
+    <script src="../../resources/js/angular-animate.min.js"></script>
+    <script src="../../resources/js/angular-aria.min.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular-locale_zh-cn.js"></script>
+    <script src="../../resources/js/ui-bootstrap.js"></script>
+    <script src="../../resources/js/ui-bootstrap-tpls-2.1.3.js"></script>
+    <script src="../../resources/js/lodash.js"></script>
+    <script src="../../resources/js/mock.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="summaryReportOfProvincesAndCities.js"></script>
+</body>
+
+</html>

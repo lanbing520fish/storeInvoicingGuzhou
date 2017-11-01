@@ -23,3 +23,5 @@
 
 * word排版静态页面 **wordPrint**
 * 新增导入单据 **addDocumentImport**
+
+* 省市进销存汇总报表 **summaryReportOfProvincesAndCities**
